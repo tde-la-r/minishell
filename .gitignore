@@ -1,0 +1,8 @@
+*.o
+minishell
+minishell_bonus
+a.out
+libft/libft.a
+*.swp
+push_swap
+.nfs0000000000a809df0000187f
