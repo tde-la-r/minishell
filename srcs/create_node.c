@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:58:08 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 18:07:20 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:51:35 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ void	create_node_quote(t_minishell *data, char *line, int *i, int c)
 		while (line[*i + len] && (!ft_isifs(line[*i + len]) && \
 		!ft_ismeta(line[*i + len])))
 			len++;
+		node = init_node(line, *i, len, c);
+		if (!node)
+			error_exit(data, NULL, line, ERR_MALLOC);
+		ft_lnadd_back(&data->line_lst, node);
 	}
-	node = init_node(line, *i, len, c);
-	if (!node)
-		error_exit(data, NULL, line, ERR_MALLOC);
-	ft_lnadd_back(&data->line_lst, node);
 	*i += len;
 }
 
