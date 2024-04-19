@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:51:43 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 16:05:19 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:05:51 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ static void	get_input(int fd, char *limiter, t_minishell *data, t_cmd *new)
 	if (!data->line)
 		ft_dprintf(STDERR_FILENO, "%s%s%d%s%s')\n", \
 				ERR_MSG_START, ERR_HD1, data->line_count, ERR_HD2, limiter);
-	free_heap_memory(data, new, NULL, B_NO_DEL);
+	free_memory(data, new, NULL, B_NO_DEL);
 	if (g_signal)
 		exit(EXIT_FAILURE);
 	exit(EXIT_SUCCESS);

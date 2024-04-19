@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:58:08 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 16:26:11 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:07:20 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	create_node_arg(t_minishell *data, char *line, int *i)
 	*i += len;
 }
 
-void	create_node_redirections(t_minishell *data, char *line, int *i, int c)
+void	create_node_redir(t_minishell *data, char *line, int *i, int c)
 {
 	int		len;
 	int		j;

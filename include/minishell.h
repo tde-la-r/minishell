@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 16:09:23 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:02:35 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,130 +149,161 @@ typedef struct s_minishell
 	struct sigaction	standard;
 }					t_minishell;
 
+/*================================init_data.c================================*/
+
+t_minishell	*init_data(char **envp);
+void		find_path_envp(t_minishell *data);
+
 /*=================================utils_2.c=================================*/
-char	**ft_arraydup(char **array, int nbstr);
-char	*ft_getenv(const char *name, char **envp);
-int		find_env_index(const char *to_test, char **envp, int plus);
+
+char		**ft_arraydup(char **array, int nbstr);
+char		*ft_getenv(const char *name, char **envp);
+int			find_env_index(const char *to_test, char **envp, int plus);
 
 /*=================================prompt.c==================================*/
-char	*set_prompt(t_minishell *data);
+
+char		*set_prompt(t_minishell *data);
 
 /*=================================cmd_lst.c=================================*/
-void	init_lst_cmd(t_minishell *data);
-int		find_nb_args(t_line *line_lst);
+
+void		init_lst_cmd(t_minishell *data);
+int			find_nb_args(t_line *line_lst);
 
 /*===============================parse_line.c================================*/
-bool	parse_line(char *line, t_minishell *data);
+
+bool		parse_line(char *line, t_minishell *data);
 
 /*===================================exec.c==================================*/
-void	exec_cmds(t_minishell *data);
+
+void		exec_cmds(t_minishell *data);
 
 /*=================================builtins==================================*/
-int		ft_pwd(int fd);
-int		ft_env(int fd, char **args, char **envp);
-int		ft_unset(char **args, char **envp, int *nb_envp);
-int		ft_cd(int fd, char **args, t_minishell *data);
-int		ft_exit(char **args, t_minishell *to_free);
-int		ft_echo(int fd, char **args);
+
+int			ft_pwd(int fd);
+int			ft_env(int fd, char **args, char **envp);
+int			ft_unset(char **args, char **envp, int *nb_envp);
+int			ft_cd(int fd, char **args, t_minishell *data);
+int			ft_exit(char **args, t_minishell *to_free);
+int			ft_echo(int fd, char **args);
 
 /*===============================export_utils.c==============================*/
-int		add_first_quote(char **envp, char **new_envp, int i);
-int		add_second_quote(char **envp, char **new_envp, int i);
-int		modify_var(char **new_envp, char *dup_var, int index, int operator);
-void	print_error_msg(char *arg);
-char	*select_content(char *var);
+
+int			add_first_quote(char **envp, char **new_envp, int i);
+int			add_second_quote(char **envp, char **new_envp, int i);
+int			modify_var(char **new_envp, char *dup_var, int index, int operator);
+void		print_error_msg(char *arg);
+char		*select_content(char *var);
 
 /*=============================export_no_args.c==============================*/
-int		export_no_arg(char **envp, char **new_envp, int nbenv, int fd);
+
+int			export_no_arg(char **envp, char **new_envp, int nbenv, int fd);
 
 /*=================================export.c==================================*/
-int		ft_export(int fd, char **args, t_minishell *data);
+
+int			ft_export(int fd, char **args, t_minishell *data);
 
 /*===============================create_node.c===============================*/
-void	create_node_quote(t_minishell *data, char *line, int *i, int c);
-void	create_node_arg(t_minishell *data, char *line, int *i);
-void	create_node_redirections(t_minishell *data, char *line, int *i, int c);
-void	create_node_pipe(t_minishell *data, char *line, int *i, int c);
+
+void		create_node_quote(t_minishell *data, char *line, int *i, int c);
+void		create_node_arg(t_minishell *data, char *line, int *i);
+void		create_node_redir(t_minishell *data, char *line, int *i, int c);
+void		create_node_pipe(t_minishell *data, char *line, int *i, int c);
 
 /*============================create_node_utils.c============================*/
-int		check_type(int c);
-t_line	*init_node(char *line, int i, int len, int c);
+
+int			check_type(int c);
+t_line		*init_node(char *line, int i, int len, int c);
 
 /*===============================lexer_utils.c===============================*/
-int		ft_isifs(int c);
-int		ft_ismeta(int c);
-void	print_error_syn(char *line, int c);
+
+int			ft_isifs(int c);
+int			ft_ismeta(int c);
+void		print_error_syn(char *line, int c);
 
 /*==============================lexer_syntax.c===============================*/
-int		check_dquote_error(char *line, int error, int *i);
-int		check_squote_error(char *line, int error, int *i);
-int		check_pipe_error(char *line, int error, int *i);
-int		check_redir_error(char *line, int error, int *i, int token);
+
+int			check_dquote_error(char *line, int error, int *i);
+int			check_squote_error(char *line, int error, int *i);
+int			check_pipe_error(char *line, int error, int *i);
+int			check_redir_error(char *line, int error, int *i, int token);
 
 /*==============================cmd_lst_utils.c==============================*/
-void	ft_cmddelone(t_cmd *lst);
-void	ft_cmdclear(t_cmd **lst);
-void	ft_cmdadd_back(t_cmd **lst, t_cmd *new);
-int		ft_cmdsize(t_cmd *list);
-t_line	*ft_lnnew(int index, int type, char *str, t_line *prev);
+
+void		ft_cmddelone(t_cmd *lst);
+void		ft_cmdclear(t_cmd **lst);
+void		ft_cmdadd_back(t_cmd **lst, t_cmd *new);
+int			ft_cmdsize(t_cmd *list);
+t_line		*ft_lnnew(int index, int type, char *str, t_line *prev);
 
 /*==============================ln_lst_utils.c===============================*/
-void	ft_lnadd_back(t_line **ln, t_line *new);
-void	ft_lnclear(t_line **lst);
-void	ft_lndelone(t_line *lst);
+
+void		ft_lnadd_back(t_line **ln, t_line *new);
+void		ft_lnclear(t_line **lst);
+void		ft_lndelone(t_line *lst);
 
 /*==================================utils.c==================================*/
-bool	isifs(int c);
-bool	isredirection(t_line element);
-bool	isquote(int c);
-void	free_array(char ***array);
-int		skip_quote(char quote, char *str, int i);
+
+bool		isifs(int c);
+bool		isredirection(t_line element);
+bool		isquote(int c);
+void		free_array(char ***array);
+int			skip_quote(char quote, char *str, int i);
 
 /*===============================error_utils.c===============================*/
-void	error_exit(t_minishell *data, t_cmd *node, char *str, char *err);
-void	free_heap_memory(t_minishell *data, t_cmd *node, char *str, bool del);
-void	close_fds(t_cmd *lst);
-void	del_heredocs(char **heredocs);
-void	child_error_exit(t_minishell *data, char *err_msg);
+
+void		error_exit(t_minishell *data, t_cmd *node, char *str, char *err);
+void		free_memory(t_minishell *data, t_cmd *node, char *str, bool del);
+void		close_fds(t_cmd *lst);
+void		del_heredocs(char **heredocs);
+void		child_error_exit(t_minishell *data, char *err_msg);
 
 /*===============================split_args.c================================*/
-void	split_args_variables(t_minishell *data);
-char	**split_ifs(char *str);
+
+void		split_args_variables(t_minishell *data);
+char		**split_ifs(char *str);
 
 /*=========================expand_variables_utils.c==========================*/
-char	*count_var_quotes(char *var);
-char	*insert_backslash_quotes(char *var);
-int		find_name_len(char *var);
+
+char		*count_var_quotes(char *var);
+char		*insert_backslash_quotes(char *var);
+int			find_name_len(char *var);
 
 /*=============================expand_variables.c============================*/
-void	expand_variables(t_minishell *data);
-char	*substitute_variable(char *line, int *i, t_minishell data);
+
+void		expand_variables(t_minishell *data);
+char		*substitute_variable(char *line, int *i, t_minishell data);
 
 /*===============================format_cmd.c================================*/
-bool	ft_is_builtin(char *arg);
-char	*format_cmd(t_minishell *data, char *arg, bool *exec);
+
+bool		ft_is_builtin(char *arg);
+char		*format_cmd(t_minishell *data, char *arg, bool *exec);
 
 /*==========================arg_is_well_formated.c===========================*/
-int		arg_is_well_formatted(char *to_check);
-int		check_operator(char *to_check);
+
+int			arg_is_well_formatted(char *to_check);
+int			check_operator(char *to_check);
 
 /*================================del_quote.c================================*/
-void	delete_char(char *arg, int pos);
-void	find_quote(char *arg);
-void	del_quote_arg_element(t_line *lst);
+
+void		delete_char(char *arg, int pos);
+void		find_quote(char *arg);
+void		del_quote_arg_element(t_line *lst);
 
 /*================================init_fds.c=================================*/
-t_cmd	*create_next_node(t_minishell *data, t_cmd **new, t_line *pipe);
-t_cmd	*ft_cmdnew(int cmd_in, int nb_args);
-t_cmd	*fds_redir(t_minishell *data, t_cmd *new, t_line *redir);
+
+t_cmd		*create_next_node(t_minishell *data, t_cmd **new, t_line *pipe);
+t_cmd		*ft_cmdnew(int cmd_in, int nb_args);
+t_cmd		*fds_redir(t_minishell *data, t_cmd *new, t_line *redir);
 
 /*================================here_docs.c================================*/
-int		create_here_doc(char *limiter, t_minishell *data, t_cmd *new);
+
+int			create_here_doc(char *limiter, t_minishell *data, t_cmd *new);
 
 /*=============================here_docs_utils.c=============================*/
-void	check_signal(int signal);
-void	set_signal(bool *expand, char *limiter, int *limiter_len);
-int		receive_signal(t_minishell *data, t_cmd *new);
-void	delete_all_char(char *str, char to_delete);
+
+void		check_signal(int signal);
+void		set_signal(bool *expand, char *limiter, int *limiter_len);
+int			receive_signal(t_minishell *data, t_cmd *new);
+void		delete_all_char(char *str, char to_delete);
 
 #endif

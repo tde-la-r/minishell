@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:00 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 16:49:52 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:05:27 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ char	*format_cmd(t_minishell *data, char *arg, bool *exec)
 
 	if (!arg)
 	{
-		free_heap_memory(data, NULL, NULL, B_NO_DEL);
+		free_memory(data, NULL, NULL, B_NO_DEL);
 		exit(EXIT_SUCCESS);
 	}
 	if (!*arg)

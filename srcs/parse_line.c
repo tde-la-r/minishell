@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 19:54:58 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 16:28:08 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:06:51 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ static void	init_lst_lexer(char *line, t_minishell *data)
 		else if (line[i] == '|')
 			create_node_pipe(data, line, &i, '|');
 		else if (line[i] == '>' && line[i + 1] != '>')
-			create_node_redirections(data, line, &i, 'T');
+			create_node_redir(data, line, &i, 'T');
 		else if (line[i] == '>' && line[i + 1] == '>')
-			create_node_redirections(data, line, &i, 'A');
+			create_node_redir(data, line, &i, 'A');
 		else if (line[i] == '<' && line[i + 1] != '<')
-			create_node_redirections(data, line, &i, 'I');
+			create_node_redir(data, line, &i, 'I');
 		else if (line[i] == '<' && line[i + 1] == '<' )
-			create_node_redirections(data, line, &i, 'H');
+			create_node_redir(data, line, &i, 'H');
 		else
 			i++;
 	}

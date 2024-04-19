@@ -6,65 +6,13 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 16:32:42 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 17:51:00 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 int	g_signal = 0;
-
-static void	interactive_new_line(int signal)
-{
-	if (signal == SIGINT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
-}
-
-static void	find_path_envp(t_minishell *data)
-{
-	char	*var;
-
-	var = ft_getenv(ENV_PATH, data->env);
-	if (!var)
-		return ;
-	data->paths = ft_split(var, ':');
-	if (!data->paths)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
-}
-
-static t_minishell	*init_data(char **envp)
-{
-	t_minishell	*data;
-
-	data = ft_calloc(sizeof(*data), 1);
-	if (!data)
-		error_exit(NULL, NULL, NULL, ERR_MALLOC);
-	if (!envp)
-		data->env = ft_calloc(sizeof(char *), 1);
-	else
-	{
-		while (envp[data->nbenv])
-			data->nbenv++;
-		data->env = ft_arraydup(envp, data->nbenv);
-	}
-	if (!data->env)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
-	data->heredocs = ft_calloc(sizeof(char *), 1);
-	if (!data->heredocs)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
-	data->prompt = set_prompt(data);
-	data->ignore.sa_handler = SIG_IGN;
-	data->standard.sa_handler = SIG_DFL;
-	data->new_line.sa_handler = &interactive_new_line;
-	find_path_envp(data);
-	data->line_count = 1;
-	return (data);
-}
 
 static void	setup_new_line(t_minishell *data)
 {
@@ -79,6 +27,18 @@ static void	setup_new_line(t_minishell *data)
 	free(data->prompt);
 	data->prompt = set_prompt(data);
 	find_path_envp(data);
+}
+
+void	find_path_envp(t_minishell *data)
+{
+	char	*var;
+
+	var = ft_getenv(ENV_PATH, data->env);
+	if (!var)
+		return ;
+	data->paths = ft_split(var, ':');
+	if (!data->paths)
+		error_exit(data, NULL, NULL, ERR_MALLOC);
 }
 
 int	main(int argc, char **argv, char **envp)

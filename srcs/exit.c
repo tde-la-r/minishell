@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:45 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/12 17:51:46 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:05:07 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ int	ft_exit(char **args, t_minishell *data)
 		ft_putendl_fd(err, STDERR_FILENO);
 		if (err)
 			free(err);
-		free_heap_memory(data, NULL, NULL, B_DEL);
+		free_memory(data, NULL, NULL, B_DEL);
 		exit (ret);
 	}
 	if (ret == 1)
@@ -132,6 +132,6 @@ int	ft_exit(char **args, t_minishell *data)
 		ret = data->exit;
 	else
 		ret = char_to_uchar(args[1]);
-	free_heap_memory(data, NULL, NULL, B_DEL);
+	free_memory(data, NULL, NULL, B_DEL);
 	exit (ret);
 }

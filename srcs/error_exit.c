@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:53:29 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/17 20:38:55 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:03:52 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	child_error_exit(t_minishell *data, char *err_msg)
 {
 	close_fds(data->cmd_lst);
-	free_heap_memory(data, NULL, NULL, B_NO_DEL);
+	free_memory(data, NULL, NULL, B_NO_DEL);
 	if (errno == EBADF)
 		exit (EXIT_FAILURE);
 	perror(err_msg);
@@ -51,7 +51,7 @@ void	del_heredocs(char **heredocs)
 	}
 }
 
-void	free_heap_memory(t_minishell *data, t_cmd *node, char *str, bool del)
+void	free_memory(t_minishell *data, t_cmd *node, char *str, bool del)
 {
 	if (str)
 		free(str);
@@ -77,7 +77,7 @@ void	error_exit(t_minishell *data, t_cmd *node, char *str, char *err)
 {
 	if (data)
 		close_fds(data->cmd_lst);
-	free_heap_memory(data, node, str, B_DEL);
+	free_memory(data, node, str, B_DEL);
 	if (err)
 		perror(err);
 	exit (errno);

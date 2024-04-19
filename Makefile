@@ -6,7 +6,7 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/04/18 09:37:21 by amolbert         ###   ########.fr        #
+#    Updated: 2024/04/19 17:48:26 by tde-la-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRCS = 	arg_is_well_formatted.c \
 		lexer_utils.c \
 		ln_lst_utils.c \
 		main.c \
+		init_data.c \
 		parse_line.c \
 		prompt.c \
 		pwd.c \
