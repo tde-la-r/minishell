@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:00 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 11:02:35 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:49:52 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,12 @@ bool	ft_is_builtin(char *arg)
 	if (!ft_strncmp(arg, "env", 4))
 		return (true);
 	return (false);
+}
+
+static void	switch_exec(bool *exec)
+{
+	*exec = false;
+	errno = ENOENT;
 }
 
 static char	*check_access(t_minishell *data, char *tmp, bool *exec)
@@ -44,14 +50,8 @@ static char	*check_access(t_minishell *data, char *tmp, bool *exec)
 		i++;
 	}
 	cmd = ft_substr(tmp, 1, len - 1);
-	*exec = false;
+	switch_exec(exec);
 	return (cmd);
-}
-
-static void	switch_exec(bool *exec)
-{
-	*exec = false;
-	errno = ENOENT;
 }
 
 char	*format_cmd(t_minishell *data, char *arg, bool *exec)
