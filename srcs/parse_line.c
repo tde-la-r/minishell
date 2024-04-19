@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 19:54:58 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 16:22:16 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:28:08 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,10 @@ bool	parse_line(char *line, t_minishell *data)
 	int	ret;
 
 	if (!*line)
+	{
+		free(line);
 		return (B_FAILURE);
+	}
 	ret = check_syntax_error(line);
 	if (ret)
 	{
