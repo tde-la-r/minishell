@@ -3,66 +3,71 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: amolbert <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/08 20:54:00 by amolbert          #+#    #+#             */
-/*   Updated: 2023/11/15 11:59:59 by amolbert         ###   ########.fr       */
+/*   Created: 2023/11/10 18:21:36 by tde-la-r          #+#    #+#             */
+/*   Updated: 2024/04/06 00:45:58 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "ft_printf.h"
 
-static int	ft_convert(const char *s, int i, int count, va_list lst)
+static bool	print_argument(va_list *list, const char **arg, int *count)
 {
-	if (s[i + 1] == '%')
-		count = write(1, "%", 1);
-	else if (s[i + 1] == 'c')
-		count = ft_putchar(va_arg(lst, int));
-	else if (s[i + 1] == 's')
-		count = ft_putstr(va_arg(lst, char *));
-	else if (s[i + 1] == 'd' || s[i + 1] == 'i')
-		count = ft_putnbr(va_arg(lst, int));
-	else if (s[i + 1] == 'u')
-		count = ft_putnbrus(va_arg(lst, unsigned int));
-	else if (s[i + 1] == 'x')
-		count = ft_dectohexa(va_arg(lst, unsigned int), "0123456789abcdef");
-	else if (s[i + 1] == 'X')
-		count = ft_dectohexa(va_arg(lst, unsigned int), \
-		"0123456789ABCDEF");
-	else if (s[i + 1] == 'p')
-		count = ft_pointtohexa(va_arg(lst, unsigned long long), \
-		"0123456789abcdef", 1);
-	else if (s[i + 1] == '\0')
-		return (-1);
+	(*arg)++;
+	if (**arg == 'i' || **arg == 'd' || **arg == 'c')
+		print_integer_ptf(STDOUT_FILENO, list, **arg, count);
+	else if (**arg == 'u' || **arg == 'x' || **arg == 'X')
+		print_u_int_ptf(STDOUT_FILENO, list, **arg, count);
+	else if (**arg == 'p')
+		print_pointer_ptf(STDOUT_FILENO, list, count);
+	else if (**arg == 's')
+		print_string_ptf(STDOUT_FILENO, list, count);
+	else if (**arg == '%')
+	{
+		write(STDOUT_FILENO, "%", 1);
+		(*count)++;
+	}
+	else if (**arg)
+	{
+		write(STDOUT_FILENO, "%", 1);
+		write(STDOUT_FILENO, *arg, 1);
+		*count += 2;
+	}
 	else
-		count = 2;
-	return (count);
+		return (false);
+	return (true);
 }
 
-int	ft_printf(const char *s, ...)
+static int	process_chars(va_list *list, const char *to_print, int count)
 {
-	va_list	lst;
-	int		count;
-	int		i;
-
-	i = 0;
-	count = 0;
-	if (!s)
-		return (-1);
-	va_start(lst, s);
-	while (s[i])
+	while (*to_print)
 	{
-		if (s[i] == '%')
+		if (*to_print != '%')
 		{
-			count += ft_convert(s, i, count, lst);
-			i += 2;
+			write(STDOUT_FILENO, to_print, 1);
+			count++;
 		}
 		else
 		{
-			count += write(1, &s[i], 1);
-			i++;
+			if (!print_argument(list, &to_print, &count))
+				return (-1);
 		}
+		to_print++;
 	}
-	va_end(lst);
+	return (count);
+}
+
+int	ft_printf(const char *to_print, ...)
+{
+	va_list	list;
+	int		count;
+
+	if (!to_print)
+		return (-1);
+	count = 0;
+	va_start(list, to_print);
+	count = process_chars(&list, to_print, count);
+	va_end(list);
 	return (count);
 }

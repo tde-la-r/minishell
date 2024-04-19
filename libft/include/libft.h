@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:39:06 by amolbert          #+#    #+#             */
-/*   Updated: 2024/03/11 22:52:35 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/06 01:06:47 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdarg.h>
 # include <limits.h>
 
 # ifndef BUFFER_SIZE
@@ -55,6 +54,7 @@ char	*ft_strtrim(char const *s1, char const *set);
 char	**ft_split(char const *s, char c);
 char	*ft_itoa(int n);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
+char	*get_next_line(int fd);
 
 int		ft_isalpha(int c);
 int		ft_islower(int c);
@@ -82,6 +82,7 @@ int		ft_putstr(char *s);
 int		ft_dectohexa(unsigned int n, char *index);
 int		ft_pointtohexa(unsigned long long n, char *index, int start);
 int		ft_printf(const char *s, ...);
+int		ft_dprintf(int fd, const char *s, ...);
 int		ft_abs(int n);
 int		ft_superior(int a, int b);
 int		ft_lower(int a, int b);
@@ -112,10 +113,5 @@ void	ft_lstadd_back_int(t_lst **lst, t_lst *new);
 void	ft_lstdelone_int(t_lst *lst);
 void	ft_lstclear_int(t_lst **lst);
 void	ft_lstiter_int(t_lst *lst, void (*f)(int));
-void	ft_putnbr_ptf(int n, unsigned long u, char *base, int *count);
-void	print_string_ptf(va_list *list, int *count);
-void	print_integer_ptf(va_list *list, const char **to_print, int *count);
-void	print_u_int_ptf(va_list *list, const char **to_print, int *count);
-void	print_pointer_ptf(va_list *list, int *count);
 
 #endif

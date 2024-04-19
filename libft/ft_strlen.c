@@ -6,7 +6,7 @@
 /*   By: amolbert <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/30 14:18:25 by amolbert          #+#    #+#             */
-/*   Updated: 2023/10/31 11:47:21 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/03/22 22:07:45 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *str)
 {
 	size_t	i;
 
+	if (!str)
+		return (0);
 	i = 0;
 	while (str[i])
 		i++;

@@ -6,7 +6,7 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/03/14 16:56:44 by tde-la-r         ###   ########.fr        #
+#    Updated: 2024/04/06 00:52:46 by tde-la-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,6 +85,7 @@ SRCS =	ft_isalpha.c \
 		ft_pointtohexa.c \
 		ft_count_words.c \
 		ft_printf.c \
+		ft_dprintf.c \
 		printf_args.c \
 		get_next_line.c \
 		ft_lower.c \
@@ -100,7 +101,7 @@ RM = rm -rf
 all : $(NAME)
 
 $(NAME) : $(OBJS)
-	@ar rcs $(NAME) $(OBJS)
+	ar rcs $(NAME) $(OBJS)
 
 %.o : %.c
 	@$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@

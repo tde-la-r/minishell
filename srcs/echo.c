@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/04 08:55:41 by amolbert          #+#    #+#             */
-/*   Updated: 2024/03/15 15:59:04 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/08 16:47:28 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	check_opt(char *arg)
 	return (0);
 }
 
-int	ft_echo(char **args)
+int	ft_echo(int fd, char **args)
 {
 	int	i;
 	int	opt;
@@ -40,18 +40,12 @@ int	ft_echo(char **args)
 		i++;
 	while (args[i])
 	{
-		printf("%s", args[i]);
+		ft_putstr_fd(args[i], fd);
 		if (args[i + 1])
-			printf(" ");
+			ft_putstr_fd(" ", fd);
 		i++;
 	}
 	if (!opt)
-		printf("\n");
+		ft_putstr_fd("\n", fd);
 	return (0);
-}
-
-int	main(int argc, char **argv)
-{
-	(void) argc;
-	ft_echo(argv);
 }

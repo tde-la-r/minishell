@@ -6,19 +6,44 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/03/13 09:53:04 by amolbert         ###   ########.fr        #
+#    Updated: 2024/04/18 09:37:21 by amolbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = 	cd.c \
-		getenv.c \
-		find_env_index.c \
+SRCS = 	arg_is_well_formatted.c \
+		cd.c \
+		cmd_lst.c \
+		cmd_lst_utils.c \
+		create_node.c \
+		create_node_utils.c \
+		del_quote.c \
+		echo.c \
 		env.c \
-		array_dup.c \
-		free_array.c \
-		error_exit.c
+		error_exit.c \
+		exec.c \
+		exit.c \
+		expand_variables.c \
+		expand_variables_utils.c \
+		export.c \
+		export_no_args.c \
+		export_utils.c \
+		format_cmd.c \
+		here_doc.c \
+		here_doc_utils.c \
+		init_fds.c \
+		lexer_syntax.c \
+		lexer_utils.c \
+		ln_lst_utils.c \
+		main.c \
+		parse_line.c \
+		prompt.c \
+		pwd.c \
+		split_args.c \
+		unset.c \
+		utils.c \
+		utils_2.c
 SRCS_DIR = srcs/
 SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
 
@@ -36,25 +61,43 @@ GFLAGS = $(CFLAGS) -g
 LIB_DIR = libft/
 LIBFT = libft.a
 LIBFT_INCLUDE = $(LIB_DIR)include/
-LIBS = -Llibft -lft
+LIBS = -lreadline
+
+VFLAGS = --leak-check=full --track-fds=yes --trace-children=yes --suppressions=$(SUPP_FILE)
+STILL_REACHABLE = --show-leak-kinds=all
+SUPP_FILE = rdline_supp
 
 RM = rm -rf
 
-all : $(NAME)
+all : libft $(NAME)
 
-$(LIB_DIR)$(LIBFT): 
-	@make -C $(LIB_DIR) --no-print-directory -j4
+libft : 
+	@make -C $(LIB_DIR)
 
-$(NAME) : $(LIB_DIR)$(LIBFT) $(OBJS_PATH)
-	@$(CC) $(OBJS_PATH) -o $(NAME) $(LIB_DIR)$(LIBFT) $(LIBS)
+$(NAME) : $(OBJS_PATH)
+	@$(CC) $(OBJS_PATH) -o $(NAME) $(LIB_DIR)$(LIBFT) $(LIBS) 
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)
 	@$(CC) $(GFLAGS) -c $(INCLUDES) $< -o $@
 
+run : all
+	./$(NAME)
+
+valgrind : all
+	valgrind $(VFLAGS) ./$(NAME)
+
+valgrind_sreach : all
+	valgrind $(VFLAGS) $(STILL_REACHABLE) ./$(NAME)
+
+valgrind_without_env : all
+	valgrind $(VFLAGS) env -i ./$(NAME)
+
+gdb : all
+	gdb --tui $(NAME) -ex 'start'
+
 clean :
 	@make clean -C $(LIB_DIR) --no-print-directory
-	@$(RM) $(OBJS_PATH)
 	@$(RM) $(OBJS_DIR)
 	@echo "Files cleaned"
 
@@ -65,4 +108,4 @@ fclean : clean
 
 re : fclean all
 
-.PHONY : all clean fclean re
+.PHONY : all libft clean fclean re run valgrind valgrind_sreach valgrind_without_env gdb
