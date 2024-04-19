@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 16:29:09 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:32:42 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ static void	setup_new_line(t_minishell *data)
 	free(data->prompt);
 	data->prompt = set_prompt(data);
 	find_path_envp(data);
-	data->line_count++;
 }
 
 int	main(int argc, char **argv, char **envp)
@@ -103,6 +102,7 @@ int	main(int argc, char **argv, char **envp)
 			exec_cmds(data);
 			setup_new_line(data);
 		}
+		data->line_count++;
 		sigaction(SIGINT, &data->new_line, NULL);
 		line = readline(data->prompt);
 		sigaction(SIGINT, &data->ignore, NULL);
