@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 17:12:27 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/17 19:07:07 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:15:18 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ int	check_dquote_error(char *line, int error, int *i)
 	}
 	if (error)
 	{
-		print_error_syn(line, '"');
+		print_error_syn(line, '"', 0);
 		return (error);
 	}
 	return (0);
@@ -48,7 +48,7 @@ int	check_squote_error(char *line, int error, int *i)
 	}
 	if (error)
 	{
-		print_error_syn(line, '\'');
+		print_error_syn(line, '\'', 0);
 		return (error);
 	}
 	return (0);
@@ -79,7 +79,7 @@ int	check_pipe_error(char *line, int error, int *i)
 	error = 1;
 	if (check_before_pipe(line, i))
 	{
-		print_error_syn(line, 'P');
+		print_error_syn(line, 'P', 0);
 		return (error);
 	}
 	(*i)++;
@@ -89,18 +89,20 @@ int	check_pipe_error(char *line, int error, int *i)
 		error = 0;
 	if (error)
 	{
-		print_error_syn(line, '|');
+		print_error_syn(line, '|', 0);
 		return (error);
 	}
 	(*i)--;
 	return (0);
 }
 
-int	check_redir_error(char *line, int error, int *i, int token)
+int	check_redir_error(char *line, int error, int *i, int c)
 {
+	int	token;
+
 	(*i)++;
 	error = 1;
-	if (line[*i] == token)
+	if (line[*i] == c)
 		(*i)++;
 	while (ft_isifs(line[*i]))
 		(*i)++;
@@ -108,7 +110,8 @@ int	check_redir_error(char *line, int error, int *i, int token)
 		error = 0;
 	if (error)
 	{
-		print_error_syn(line, token);
+		find_token(line, *i, &token);
+		print_error_syn(line, c, token);
 		return (error);
 	}
 	(*i)--;

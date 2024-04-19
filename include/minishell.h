@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 18:02:35 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:13:12 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -218,14 +218,15 @@ t_line		*init_node(char *line, int i, int len, int c);
 
 int			ft_isifs(int c);
 int			ft_ismeta(int c);
-void		print_error_syn(char *line, int c);
+void		find_token(char *line, int i, int *token);
+void		print_error_syn(char *line, int c, int token);
 
 /*==============================lexer_syntax.c===============================*/
 
 int			check_dquote_error(char *line, int error, int *i);
 int			check_squote_error(char *line, int error, int *i);
 int			check_pipe_error(char *line, int error, int *i);
-int			check_redir_error(char *line, int error, int *i, int token);
+int			check_redir_error(char *line, int error, int *i, int c);
 
 /*==============================cmd_lst_utils.c==============================*/
 
