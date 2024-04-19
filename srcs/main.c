@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 16:13:26 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:25:41 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,8 @@ int	main(int argc, char **argv, char **envp)
 		{
 			init_lst_cmd(data);
 			exec_cmds(data);
+			setup_new_line(data);
 		}
-		setup_new_line(data);
 		line = readline(data->prompt);
 		sigaction(SIGINT, &data->ignore, NULL);
 	}
