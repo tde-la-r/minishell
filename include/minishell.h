@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 11:29:07 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:09:23 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@
 
 # define TMP_DIR "/tmp/"
 # define TMP_DIR_LEN 5
-# define ERR_HERE_DOC "minishell: warning: here-document \
-delimited by end-of-file"
+# define ERR_HD1 "warning: here-document at line "
+# define ERR_HD2 " delimited by end-of-file (wanted `"
 # define URANDOM_FILE "/dev/urandom"
 # define ERR_URANDOM_OPEN "minishell: can't open /dev/urandom"
 # define ERR_URANDOM_READ "minishell: can't read /dev/urandom"
@@ -136,6 +136,7 @@ typedef struct s_minishell
 {
 	int					exit;
 	int					nbenv;
+	int					line_count;
 	char				**env;
 	char				**paths;
 	char				**heredocs;

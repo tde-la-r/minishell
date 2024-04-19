@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 11:09:36 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 16:13:26 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,30 +39,31 @@ static void	find_path_envp(t_minishell *data)
 
 static t_minishell	*init_data(char **envp)
 {
-	t_minishell	*init;
+	t_minishell	*data;
 
-	init = ft_calloc(sizeof(*init), 1);
-	if (!init)
+	data = ft_calloc(sizeof(*data), 1);
+	if (!data)
 		error_exit(NULL, NULL, NULL, ERR_MALLOC);
 	if (!envp)
-		init->env = ft_calloc(sizeof(char *), 1);
+		data->env = ft_calloc(sizeof(char *), 1);
 	else
 	{
-		while (envp[init->nbenv])
-			init->nbenv++;
-		init->env = ft_arraydup(envp, init->nbenv);
+		while (envp[data->nbenv])
+			data->nbenv++;
+		data->env = ft_arraydup(envp, data->nbenv);
 	}
-	if (!init->env)
-		error_exit(init, NULL, NULL, ERR_MALLOC);
-	init->heredocs = ft_calloc(sizeof(char *), 1);
-	if (!init->heredocs)
-		error_exit(init, NULL, NULL, ERR_MALLOC);
-	init->prompt = set_prompt(init);
-	init->ignore.sa_handler = SIG_IGN;
-	init->standard.sa_handler = SIG_DFL;
-	init->new_line.sa_handler = &interactive_new_line;
-	find_path_envp(init);
-	return (init);
+	if (!data->env)
+		error_exit(data, NULL, NULL, ERR_MALLOC);
+	data->heredocs = ft_calloc(sizeof(char *), 1);
+	if (!data->heredocs)
+		error_exit(data, NULL, NULL, ERR_MALLOC);
+	data->prompt = set_prompt(data);
+	data->ignore.sa_handler = SIG_IGN;
+	data->standard.sa_handler = SIG_DFL;
+	data->new_line.sa_handler = &interactive_new_line;
+	find_path_envp(data);
+	data->line_count = 1;
+	return (data);
 }
 
 static void	setup_new_line(t_minishell *data)
@@ -78,6 +79,7 @@ static void	setup_new_line(t_minishell *data)
 	free(data->prompt);
 	data->prompt = set_prompt(data);
 	find_path_envp(data);
+	data->line_count++;
 	sigaction(SIGINT, &data->new_line, NULL);
 }
 
