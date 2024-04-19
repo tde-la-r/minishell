@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 18:13:12 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:34:58 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,6 +159,7 @@ void		find_path_envp(t_minishell *data);
 char		**ft_arraydup(char **array, int nbstr);
 char		*ft_getenv(const char *name, char **envp);
 int			find_env_index(const char *to_test, char **envp, int plus);
+void		print_array(int fd, char **array);
 
 /*=================================prompt.c==================================*/
 
@@ -180,7 +181,7 @@ void		exec_cmds(t_minishell *data);
 /*=================================builtins==================================*/
 
 int			ft_pwd(int fd);
-int			ft_env(int fd, char **args, char **envp);
+int			ft_env(t_minishell *data, int fd, char **args, char **envp);
 int			ft_unset(char **args, char **envp, int *nb_envp);
 int			ft_cd(int fd, char **args, t_minishell *data);
 int			ft_exit(char **args, t_minishell *to_free);

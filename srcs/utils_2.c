@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   array_dup.c                                        :+:      :+:    :+:   */
+/*   utils_2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:25:17 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/18 09:34:27 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:35:50 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,16 @@ int	find_env_index(const char *to_test, char **envp, int c)
 		i++;
 	}
 	return (-1);
+}
+
+void	print_array(int fd, char **array)
+{
+	int	i;
+
+	i = 0;
+	while (array[i])
+	{
+		ft_putendl_fd(array[i], fd);
+		i++;
+	}
 }

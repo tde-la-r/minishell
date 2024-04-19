@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:12:28 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/17 18:35:45 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:34:12 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,7 +113,7 @@ int	export_no_arg(char **envp, char **new_envp, int nbenv, int fd)
 		free_array(&new_envp);
 		return (EXIT_FAILURE);
 	}
-	ft_env(fd, NULL, new_envp);
+	print_array(fd, new_envp);
 	free_array(&new_envp);
 	return (EXIT_SUCCESS);
 }

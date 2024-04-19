@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:05:32 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 18:04:37 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/19 18:23:47 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static bool	exec_builtin(char **args, int fd_in, int fd_out, t_minishell *data)
 	if (!ft_strncmp(args[0], B_CD, BUILTIN_CMP_LEN))
 		data->exit = ft_cd(fd_out, args, data);
 	else if (!ft_strncmp(args[0], B_ENV, BUILTIN_CMP_LEN))
-		data->exit = ft_env(fd_out, args, data->env);
+		data->exit = ft_env(data, fd_out, args, data->env);
 	else if (!ft_strncmp(args[0], B_UNSET, BUILTIN_CMP_LEN))
 		data->exit = ft_unset(args, data->env, &data->nbenv);
 	else if (!ft_strncmp(args[0], B_EXPORT, BUILTIN_CMP_LEN))
