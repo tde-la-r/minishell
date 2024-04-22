@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:40:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 16:04:58 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 19:22:31 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,8 @@ static char	*append_sep_chars(char *to_format, t_minishell *data)
 	size_t	len;
 	char	*pwd;
 
+	if (!to_format)
+		return (NULL);
 	len = ft_strlen(to_format);
 	pwd = ft_calloc(sizeof(char), len + 4);
 	if (!pwd)
@@ -87,7 +89,8 @@ char	*set_prompt(t_minishell *data)
 	if (!logname)
 		logname = ft_getenv("USER", data->env);
 	prompt = ft_strjoin(logname, sep_chars);
-	free(sep_chars);
+	if (sep_chars)
+		free(sep_chars);
 	if (!prompt)
 		error_exit(data, NULL, NULL, "malloc");
 	return (prompt);

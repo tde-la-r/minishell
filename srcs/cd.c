@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:00:35 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 16:18:34 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 19:19:43 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,15 +60,27 @@ static void	update_pwd(char **envp, t_minishell *data)
 	envp[index] = tmp;
 }
 
-static char	*get_target(char *to_find, char **envp, int fd)
+static char	*get_target(char *arg, char **envp, bool *print)
 {
 	char	*var;
 
-	var = ft_getenv(to_find, envp);
-	if (!var)
-		ft_dprintf(STDERR_FILENO, "%scd: %s not set\n", ERR_MSG_START, to_find);
-	if (fd != -1)
-		ft_putendl_fd(var, fd);
+	if (!arg)
+	{
+		var = ft_getenv("HOME", envp);
+		if (!var)
+			ft_dprintf(STDERR_FILENO, "%scd: %s not set\n", \
+					ERR_MSG_START, "HOME");
+	}
+	else if (!ft_strncmp("-", arg, 2))
+	{
+		*print = true;
+		var = ft_getenv("OLDPWD", envp);
+		if (!var)
+			ft_dprintf(STDERR_FILENO, "%scd: %s not set\n", \
+					ERR_MSG_START, "OLDPWD");
+	}
+	else
+		return (arg);
 	return (var);
 }
 
@@ -76,17 +88,15 @@ int	ft_cd(int fd, char **args, t_minishell *data)
 {
 	char	*target;
 	char	*err;
+	bool	print;
 
 	if (args[1] && args[2])
 	{
 		ft_putendl_fd(ERR_CD_ARGS, STDERR_FILENO);
 		return (EXIT_FAILURE);
 	}
-	target = args[1];
-	if (!args[1])
-		target = get_target("HOME", data->env, -1);
-	else if (!ft_strncmp("-", args[1], 2))
-		target = get_target("OLDPWD", data->env, fd);
+	print = false;
+	target = get_target(args[1], data->env, &print);
 	if (!target)
 		return (EXIT_FAILURE);
 	if (chdir(target) == -1)
@@ -95,6 +105,8 @@ int	ft_cd(int fd, char **args, t_minishell *data)
 		ft_dprintf(STDERR_FILENO, "%scd: %s: %s\n", ERR_MSG_START, target, err);
 		return (EXIT_FAILURE);
 	}
+	if (print)
+		ft_putendl_fd(target, fd);
 	update_oldpwd(data->env, data);
 	update_pwd(data->env, data);
 	return (EXIT_SUCCESS);
