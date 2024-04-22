@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 16:17:19 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:05:34 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ typedef struct s_minishell
 	struct sigaction	new_line;
 	struct sigaction	ignore;
 	struct sigaction	standard;
-}					t_minishell;
+}						t_minishell;
 
 /*================================init_data.c================================*/
 
@@ -236,7 +236,6 @@ char		**split_ifs(char *str);
 
 /*=========================expand_variables_utils.c==========================*/
 
-char		*count_var_quotes(char *var);
 char		*insert_backslash_quotes(char *var);
 int			find_name_len(char *var);
 

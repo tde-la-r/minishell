@@ -6,13 +6,13 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 20:46:53 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/17 20:49:42 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:05:02 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*count_var_quotes(char *var)
+static char	*count_var_quotes(char *var)
 {
 	int		i;
 	int		count;

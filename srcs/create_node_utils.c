@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:42:06 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/17 18:54:40 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:03:16 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ int	check_type(int c)
 {
 	int	type;
 
-	if (c == '\"' || c == '\'')
-		type = EL_ARG;
-	else if (c == '|')
+	if (c == '|')
 		type = EL_PIPE;
 	else if (c == 'I')
 		type = EL_INFILE;

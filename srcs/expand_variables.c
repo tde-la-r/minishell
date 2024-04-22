@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:52:09 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 15:39:22 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:24:57 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*substitute_variable(char *line, int *i, t_minishell data)
 	return (result);
 }
 
-static char	*find_expand_case(char	*str, t_minishell *data)
+static char	*find_expand_case(char *str, t_minishell *data)
 {
 	int		i;
 	bool	in_dquote;
