@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 15:13:56 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:02:00 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ void	find_path_envp(t_minishell *data)
 {
 	char	*var;
 
-	var = ft_getenv(ENV_PATH, data->env);
+	var = ft_getenv("PATH", data->env);
 	if (!var)
 		return ;
 	data->paths = ft_split(var, ':');
 	if (!data->paths)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 }
 
 static void	setup_new_line(t_minishell *data)
@@ -35,7 +35,7 @@ static void	setup_new_line(t_minishell *data)
 	free_array(&data->heredocs);
 	data->heredocs = ft_calloc(sizeof(char *), 1);
 	if (!data->heredocs)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	free(data->prompt);
 	data->prompt = set_prompt(data);
 	find_path_envp(data);

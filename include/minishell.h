@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 14:28:43 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:17:19 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,14 +33,11 @@
 # define BACKSLASH_QUOTE -2
 # define IFS " \t\n"
 
-# define TMP_DIR "/tmp/"
 # define TMP_DIR_LEN 5
 # define ERR_HD1 "warning: here-document at line "
 # define ERR_HD2 " delimited by end-of-file (wanted `"
-# define URANDOM_FILE "/dev/urandom"
 # define ERR_URANDOM_OPEN "minishell: can't open /dev/urandom"
 # define ERR_URANDOM_READ "minishell: can't read /dev/urandom"
-# define PROMPT_HEREDOC "> "
 
 # define B_SUCCESS false
 # define B_FAILURE true
@@ -52,23 +49,12 @@
 # define ERR_MSG_START "minishell: "
 # define ERR_CMD_NOT_FOUND "command not found"
 # define ERR_ISDIR "Is a directory"
-# define ERR_MALLOC "minishell: malloc"
-# define ERR_STAT "minishell: stat"
-# define ERR_PIPE "minishell: pipe"
-# define ERR_FORK "minishell: fork"
-# define ERR_DUP "minishell: dup2"
 # define ERR_CD_ARGS "minishell: cd: too many arguments"
 # define ERR_CD_OLDPWD "minishell: cd: OLDPWD not set"
-# define ERR_WAIT "minishell: wait"
-# define ERR_WAITPID "minishell: waitpid"
-# define ERR_OPEN "minishell: open"
-# define ERR_PWD "minishell: pwd"
 # define ERR_AMB_REDIR "minishell: ambiguous redirect"
 # define ERR_EXPORT1 "minishell: export: `"
 # define ERR_EXPORT2 "': not a valid identifier"
 # define ERR_EXIT "minishell: exit: too many arguments"
-# define ERR_UNLINK "minishell: unlink"
-# define ERR_GETCWD "minishell: getcwd"
 # define ERR_INIT_GETCWD "minishell-init: error retrieving current directory: \
 	getcwd: cannot access parent directories"
 
@@ -84,21 +70,6 @@
 # define ERR_SYN_DQ "minishell: unexpected EOF while looking for matching `\"'" 
 # define ERR_SYN_EOF "minishell: syntax error: unexpected end of file" 
 # define ERR_SYN_PIPE "minishell: syntax error near unexpected token `|'" 
-
-# define ENV_LOGNAME "LOGNAME"
-# define ENV_USER "USER"
-# define ENV_PWD "PWD"
-# define ENV_OLDPWD "OLDPWD"
-# define ENV_HOME "HOME"
-# define ENV_PATH "PATH"
-
-# define B_CD "cd"
-# define B_ENV "env"
-# define B_PWD "pwd"
-# define B_EXPORT "export"
-# define B_UNSET "unset"
-# define B_ECHO "echo"
-# define B_EXIT "exit"
 
 extern int	g_signal;
 

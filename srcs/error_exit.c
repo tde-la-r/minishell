@@ -6,19 +6,24 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:53:29 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 18:03:52 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:19:03 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	child_error_exit(t_minishell *data, char *err_msg)
+void	child_error_exit(t_minishell *data, char *function)
 {
+	int	err_code;
+
+	err_code = errno;
 	close_fds(data->cmd_lst);
 	free_memory(data, NULL, NULL, B_NO_DEL);
 	if (errno == EBADF)
 		exit (EXIT_FAILURE);
-	perror(err_msg);
+	if (function)
+		ft_dprintf(STDERR_FILENO, "%s%s: %s\n", \
+				ERR_MSG_START, function, strerror(err_code));
 	exit (errno);
 }
 
@@ -46,7 +51,7 @@ void	del_heredocs(char **heredocs)
 	while (heredocs[i])
 	{
 		if (unlink(heredocs[i]) == -1)
-			perror(ERR_UNLINK);
+			perror("minishell: unlink");
 		i++;
 	}
 }
@@ -73,12 +78,16 @@ void	free_memory(t_minishell *data, t_cmd *node, char *str, bool del)
 	rl_clear_history();
 }
 
-void	error_exit(t_minishell *data, t_cmd *node, char *str, char *err)
+void	error_exit(t_minishell *data, t_cmd *node, char *str, char *function)
 {
+	int	err_code;
+
+	err_code = errno;
 	if (data)
 		close_fds(data->cmd_lst);
 	free_memory(data, node, str, B_DEL);
-	if (err)
-		perror(err);
+	if (function)
+		ft_dprintf(STDERR_FILENO, "%s%s: %s\n", \
+				ERR_MSG_START, function, strerror(err_code));
 	exit (errno);
 }

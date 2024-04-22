@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:32:56 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/17 21:40:42 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:24:33 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	receive_signal(t_minishell *data, t_cmd *new)
 
 	sigaction(SIGINT, &data->ignore, NULL);
 	if (wait(&status) == -1)
-		error_exit(data, new, NULL, ERR_WAIT);
+		error_exit(data, new, NULL, "wait");
 	if (WIFEXITED(status))
 	{
 		if (WEXITSTATUS(status) == EXIT_FAILURE)

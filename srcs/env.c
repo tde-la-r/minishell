@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:52:29 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 18:38:35 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:37:53 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*set_bash_display(t_minishell *data, char *str)
 
 	display = ft_strdup("_=/usr/bin/env");
 	if (!display)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	free(str);
 	return (display);
 }

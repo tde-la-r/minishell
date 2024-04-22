@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:45 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 18:05:07 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:38:55 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ char	*error_msg(char *arg)
 	err = ft_strjoin(tmp, ": numeric argument required");
 	free(tmp);
 	if (!err)
-		perror(ERR_MALLOC);
+		perror("minishell: malloc");
 	return (err);
 }
 

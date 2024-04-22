@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:00:35 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/16 21:49:49 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:18:34 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	update_oldpwd(char **envp, t_minishell *data)
 		return ;
 	tmp = ft_strjoin("OLDPWD=", old_pwd);
 	if (!tmp)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	index = find_env_index("OLDPWD", envp, '=');
 	if (index == -1)
 	{
@@ -43,14 +43,14 @@ static void	update_pwd(char **envp, t_minishell *data)
 	pwd = getcwd(NULL, 0);
 	if (!pwd)
 	{
-		perror(ERR_GETCWD);
+		perror("minishell: getcwd");
 		return ;
 	}
 	tmp = ft_strjoin("PWD=", pwd);
 	free(pwd);
 	if (!tmp)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
-	index = find_env_index(ENV_PWD, envp, '=');
+		error_exit(data, NULL, NULL, "malloc");
+	index = find_env_index("PWD", envp, '=');
 	if (index == -1)
 	{
 		free(tmp);
@@ -84,9 +84,9 @@ int	ft_cd(int fd, char **args, t_minishell *data)
 	}
 	target = args[1];
 	if (!args[1])
-		target = get_target(ENV_HOME, data->env, -1);
+		target = get_target("HOME", data->env, -1);
 	else if (!ft_strncmp("-", args[1], 2))
-		target = get_target(ENV_OLDPWD, data->env, fd);
+		target = get_target("OLDPWD", data->env, fd);
 	if (!target)
 		return (EXIT_FAILURE);
 	if (chdir(target) == -1)

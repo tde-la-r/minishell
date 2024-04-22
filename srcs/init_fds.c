@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/03 14:29:30 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/17 17:35:36 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:52:29 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static bool	check_ambiguous_redir(t_minishell *data, t_cmd *new, t_line *redir)
 		return (false);
 	array = split_ifs(redir->str);
 	if (!array)
-		error_exit(data, new, NULL, ERR_MALLOC);
+		error_exit(data, new, NULL, "malloc");
 	i = 0;
 	while (array[i])
 		i++;
@@ -79,7 +79,7 @@ t_cmd	*create_next_node(t_minishell *data, t_cmd **new, t_line *pipe_node)
 	t_cmd	*next_node;
 
 	if (pipe(fd_pipe) == -1)
-		error_exit(data, NULL, NULL, ERR_PIPE);
+		error_exit(data, NULL, NULL, "pipe");
 	if ((*new)->args && (*new)->fd_out == STDOUT_FILENO)
 		(*new)->fd_out = fd_pipe[1];
 	else
@@ -89,7 +89,7 @@ t_cmd	*create_next_node(t_minishell *data, t_cmd **new, t_line *pipe_node)
 	if (!next_node)
 	{
 		close(fd_pipe[0]);
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	}
 	return (next_node);
 }

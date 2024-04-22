@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:13:47 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/17 20:42:39 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:07:03 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ static t_line	*add_args(t_line *ind, char **str, t_line *next, t_minishell *f)
 			}
 			free(str);
 			ind->next = next;
-			error_exit(f, NULL, NULL, ERR_MALLOC);
+			error_exit(f, NULL, NULL, "malloc");
 		}
 		ind->next = new;
 		ind = ind->next;
@@ -116,7 +116,7 @@ void	split_args_variables(t_minishell *data)
 		{
 			array = split_ifs(index->str);
 			if (!array)
-				error_exit(data, NULL, NULL, ERR_MALLOC);
+				error_exit(data, NULL, NULL, "malloc");
 			index = rearrange_arg(index, array, data);
 			continue ;
 		}

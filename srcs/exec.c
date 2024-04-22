@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:05:32 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 15:07:59 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:21:14 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ static void	execve_error_exit(t_minishell *data, char *cmd)
 	if (err_code == EACCES)
 	{
 		if (stat(cmd, &statbuf) == -1)
-			perror(ERR_STAT);
+			perror("minishell: stat");
 		if ((statbuf.st_mode & S_IFMT) == S_IFDIR)
 			err_msg = ERR_ISDIR;
 	}
@@ -47,19 +47,19 @@ static bool	exec_builtin(char **args, int fd_in, int fd_out, t_minishell *data)
 		return (false);
 	if (!ft_is_builtin(args[0]))
 		return (false);
-	if (!ft_strncmp(args[0], B_CD, BUILTIN_CMP_LEN))
+	if (!ft_strncmp(args[0], "cd", BUILTIN_CMP_LEN))
 		data->exit = ft_cd(fd_out, args, data);
-	else if (!ft_strncmp(args[0], B_ENV, BUILTIN_CMP_LEN))
+	else if (!ft_strncmp(args[0], "env", BUILTIN_CMP_LEN))
 		data->exit = ft_env(data, fd_out, args, data->env);
-	else if (!ft_strncmp(args[0], B_UNSET, BUILTIN_CMP_LEN))
+	else if (!ft_strncmp(args[0], "unset", BUILTIN_CMP_LEN))
 		data->exit = ft_unset(args, data->env, &data->nbenv);
-	else if (!ft_strncmp(args[0], B_EXPORT, BUILTIN_CMP_LEN))
+	else if (!ft_strncmp(args[0], "export", BUILTIN_CMP_LEN))
 		data->exit = ft_export(fd_out, args, data);
-	else if (!ft_strncmp(args[0], B_PWD, BUILTIN_CMP_LEN))
+	else if (!ft_strncmp(args[0], "pwd", BUILTIN_CMP_LEN))
 		data->exit = ft_pwd(fd_out);
-	else if (!ft_strncmp(args[0], B_EXIT, BUILTIN_CMP_LEN))
+	else if (!ft_strncmp(args[0], "exit", BUILTIN_CMP_LEN))
 		data->exit = ft_exit(args, data);
-	else if (!ft_strncmp(args[0], B_ECHO, BUILTIN_CMP_LEN))
+	else if (!ft_strncmp(args[0], "echo", BUILTIN_CMP_LEN))
 		data->exit = ft_echo(fd_out, args);
 	return (true);
 }
@@ -71,13 +71,13 @@ static void	exec_cmd_in_child(t_cmd *to_exec, t_minishell *data)
 
 	to_exec->pid = fork();
 	if (to_exec->pid == -1)
-		child_error_exit(data, ERR_FORK);
+		child_error_exit(data, "minishell: fork");
 	if (to_exec->pid)
 		return ;
 	if (dup2(to_exec->fd_in, STDIN_FILENO) == -1)
-		child_error_exit(data, ERR_DUP);
+		child_error_exit(data, "dup2");
 	if (dup2(to_exec->fd_out, STDOUT_FILENO) == -1)
-		child_error_exit(data, ERR_DUP);
+		child_error_exit(data, "dup2");
 	close_fds(data->cmd_lst);
 	if (exec_builtin(to_exec->args, to_exec->fd_in, STDOUT_FILENO, data))
 	{
@@ -102,7 +102,7 @@ static void	wait_childs(t_cmd *index, t_minishell *data)
 		if (index->pid)
 		{
 			if (waitpid(index->pid, &status, 0) == -1)
-				error_exit(data, NULL, NULL, ERR_WAITPID);
+				error_exit(data, NULL, NULL, "waitpid");
 			if (WIFEXITED(status))
 				data->exit = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))

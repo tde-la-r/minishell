@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:40:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/16 21:53:43 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:04:58 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static char	*replace_home(char *pwd, t_minishell *data)
 	char	*result;
 	size_t	len;
 
-	home = ft_getenv(ENV_HOME, data->env);
+	home = ft_getenv("HOME", data->env);
 	if (!home)
 		return (pwd);
 	len = ft_strlen(home);
@@ -27,7 +27,7 @@ static char	*replace_home(char *pwd, t_minishell *data)
 		result = ft_strjoin("~", pwd + len);
 		free(pwd);
 		if (!result)
-			error_exit(data, NULL, NULL, ERR_MALLOC);
+			error_exit(data, NULL, NULL, "malloc");
 	}
 	else
 		return (pwd);
@@ -38,12 +38,12 @@ static char	*set_working_dir(t_minishell *data)
 {
 	char	*pwd;
 
-	pwd = ft_getenv(ENV_PWD, data->env);
+	pwd = ft_getenv("PWD", data->env);
 	if (pwd)
 	{
 		pwd = ft_strdup(pwd);
 		if (!pwd)
-			error_exit(data, NULL, NULL, ERR_MALLOC);
+			error_exit(data, NULL, NULL, "malloc");
 	}
 	else
 	{
@@ -66,7 +66,7 @@ static char	*append_sep_chars(char *to_format, t_minishell *data)
 	len = ft_strlen(to_format);
 	pwd = ft_calloc(sizeof(char), len + 4);
 	if (!pwd)
-		error_exit(data, NULL, to_format, ERR_MALLOC);
+		error_exit(data, NULL, to_format, "malloc");
 	pwd[0] = ':';
 	ft_strlcat(pwd, to_format, len + 2);
 	free(to_format);
@@ -83,12 +83,12 @@ char	*set_prompt(t_minishell *data)
 
 	pwd = set_working_dir(data);
 	sep_chars = append_sep_chars(pwd, data);
-	logname = ft_getenv(ENV_LOGNAME, data->env);
+	logname = ft_getenv("LOGNAME", data->env);
 	if (!logname)
-		logname = ft_getenv(ENV_USER, data->env);
+		logname = ft_getenv("USER", data->env);
 	prompt = ft_strjoin(logname, sep_chars);
 	free(sep_chars);
 	if (!prompt)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	return (prompt);
 }

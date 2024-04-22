@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:55:09 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 18:40:10 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:03:43 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@ static void	increment_shlvl(t_minishell *data, char **env)
 	lvl = ft_atoi(content) + 1;
 	content = ft_itoa(lvl);
 	if (!content)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	tmp = ft_strjoin("SHLVL=", content);
 	free(content);
 	if (!tmp)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	free(env[index]);
 	env[index] = tmp;
 }
@@ -46,7 +46,7 @@ static void	init_env(t_minishell *data, char **envp)
 		data->env = ft_arraydup(envp, data->nbenv);
 	}
 	if (!data->env)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	increment_shlvl(data, data->env);
 }
 
@@ -67,11 +67,11 @@ t_minishell	*init_data(char **envp)
 
 	data = ft_calloc(sizeof(*data), 1);
 	if (!data)
-		error_exit(NULL, NULL, NULL, ERR_MALLOC);
+		error_exit(NULL, NULL, NULL, "malloc");
 	init_env(data, envp);
 	data->heredocs = ft_calloc(sizeof(char *), 1);
 	if (!data->heredocs)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	data->prompt = set_prompt(data);
 	data->ignore.sa_handler = SIG_IGN;
 	data->standard.sa_handler = SIG_DFL;

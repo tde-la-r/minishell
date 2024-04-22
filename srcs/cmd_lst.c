@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:00 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 10:59:01 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:36:30 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	add_arg_cmd(t_minishell *data, t_cmd **node, char *arg, int *i)
 {
 	(*node)->args[*i] = ft_strdup(arg);
 	if (!(*node)->args[*i])
-		error_exit(data, *node, NULL, ERR_MALLOC);
+		error_exit(data, *node, NULL, "malloc");
 	(*i)++;
 }
 
@@ -74,7 +74,7 @@ void	init_lst_cmd(t_minishell *data)
 	nb_arg = find_nb_args(data->line_lst);
 	node = ft_cmdnew(STDIN_FILENO, nb_arg);
 	if (!node)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	while (index)
 	{
 		if (check_element_type(data, &node, index, &i))

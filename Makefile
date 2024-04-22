@@ -6,7 +6,7 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/04/19 17:48:26 by tde-la-r         ###   ########.fr        #
+#    Updated: 2024/04/22 16:12:07 by tde-la-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,10 +73,11 @@ RM = rm -rf
 all : libft $(NAME)
 
 libft : 
-	@make -C $(LIB_DIR)
+	@make -C $(LIB_DIR) --no-print-directory
 
 $(NAME) : $(OBJS_PATH)
 	@$(CC) $(OBJS_PATH) -o $(NAME) $(LIB_DIR)$(LIBFT) $(LIBS) 
+	@echo "Minishell compiled"
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	@mkdir -p $(OBJS_DIR)

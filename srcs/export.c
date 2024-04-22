@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:56:08 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/17 18:26:49 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:40:06 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,14 +109,14 @@ int	ft_export(int fd, char **args, t_minishell *data)
 	if (!args[1])
 	{
 		if (export_no_arg(data->env, new_envp, data->nbenv, fd))
-			error_exit(data, NULL, NULL, ERR_MALLOC);
+			error_exit(data, NULL, NULL, "malloc");
 		return (0);
 	}
 	new_vars = 0;
 	ret = parse_args(args, data->env, &new_vars);
 	new_envp = create_new_envp(args, data->env, data->nbenv, new_vars);
 	if (!new_envp)
-		error_exit(data, NULL, NULL, ERR_MALLOC);
+		error_exit(data, NULL, NULL, "malloc");
 	free_array(&data->env);
 	data->env = new_envp;
 	data->nbenv += new_vars;

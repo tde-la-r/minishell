@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/25 16:58:08 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 14:55:06 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:37:30 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	create_node_arg(t_minishell *data, char *line, int *i)
 	}
 	node = init_node(line, *i, len, 0);
 	if (!node)
-		error_exit(data, NULL, line, ERR_MALLOC);
+		error_exit(data, NULL, line, "malloc");
 	ft_lnadd_back(&data->line_lst, node);
 	*i += len;
 }
@@ -53,7 +53,7 @@ void	create_node_redir(t_minishell *data, char *line, int *i, int c)
 	}
 	node = init_node(line, *i + j, len, c);
 	if (!node)
-		error_exit(data, NULL, line, ERR_MALLOC);
+		error_exit(data, NULL, line, "malloc");
 	ft_lnadd_back(&data->line_lst, node);
 	*i += len + j;
 }
@@ -64,7 +64,7 @@ void	create_node_pipe(t_minishell *data, char *line, int *i, int c)
 
 	node = init_node(line, *i, 0, c);
 	if (!node)
-		error_exit(data, NULL, line, ERR_MALLOC);
+		error_exit(data, NULL, line, "malloc");
 	ft_lnadd_back(&data->line_lst, node);
 	(*i)++;
 }

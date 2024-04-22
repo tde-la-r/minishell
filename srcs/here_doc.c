@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:51:43 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 18:05:51 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 16:30:41 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static char	*gen_file(t_minishell *data, t_cmd *new, int *fd_file, int len)
 
 	buffer = ft_calloc(sizeof(char), len + 1);
 	if (!buffer)
-		error_exit(data, new, NULL, ERR_MALLOC);
-	fd_urandom = open(URANDOM_FILE, O_RDONLY);
+		error_exit(data, new, NULL, "malloc");
+	fd_urandom = open("/dev/urandom", O_RDONLY);
 	if (fd_urandom == -1)
 		error_exit(data, new, buffer, ERR_URANDOM_OPEN);
 	ret = read(fd_urandom, buffer, len);
@@ -30,10 +30,10 @@ static char	*gen_file(t_minishell *data, t_cmd *new, int *fd_file, int len)
 	if (ret == -1)
 		error_exit(data, new, buffer, ERR_URANDOM_READ);
 	buffer[len] = '\0';
-	path = ft_strjoin(TMP_DIR, buffer);
+	path = ft_strjoin("/tmp/", buffer);
 	free(buffer);
 	if (!path)
-		error_exit(data, new, NULL, ERR_MALLOC);
+		error_exit(data, new, NULL, "malloc");
 	*fd_file = open(path, O_WRONLY | O_CREAT | O_EXCL, 0644);
 	return (path);
 }
@@ -51,7 +51,7 @@ t_cmd *new, int fd)
 	if (!new_array)
 	{
 		close(fd);
-		error_exit(data, new, to_add, ERR_MALLOC);
+		error_exit(data, new, to_add, "malloc");
 	}
 	new_array[count] = to_add;
 	free_array(&data->heredocs);
@@ -74,7 +74,7 @@ static void	write_input(int fd, bool expand, t_minishell *data, t_cmd *new)
 				if (errno)
 				{
 					close(fd);
-					error_exit(data, new, NULL, ERR_MALLOC);
+					error_exit(data, new, NULL, "malloc");
 				}
 				delete_all_char(data->line, BACKSLASH_QUOTE);
 			}
@@ -83,7 +83,7 @@ static void	write_input(int fd, bool expand, t_minishell *data, t_cmd *new)
 	}
 	ft_putendl_fd(data->line, fd);
 	free(data->line);
-	data->line = readline(PROMPT_HEREDOC);
+	data->line = readline("> ");
 }
 
 static void	get_input(int fd, char *limiter, t_minishell *data, t_cmd *new)
@@ -96,13 +96,13 @@ static void	get_input(int fd, char *limiter, t_minishell *data, t_cmd *new)
 	if (pid == -1)
 	{
 		close(fd);
-		error_exit(data, new, NULL, ERR_FORK);
+		error_exit(data, new, NULL, "fork");
 	}
 	if (pid)
 		return ;
 	limiter_len = 0;
 	set_signal(&expand, limiter, &limiter_len);
-	data->line = readline(PROMPT_HEREDOC);
+	data->line = readline("> ");
 	while (!g_signal && (ft_strncmp(data->line, limiter, limiter_len + 1)))
 		write_input(fd, expand, data, new);
 	close (fd);
@@ -130,7 +130,7 @@ int	create_here_doc(char *limiter, t_minishell *data, t_cmd *new)
 		name = gen_file(data, new, &fd, name_len);
 	}
 	if (fd == -1)
-		error_exit(data, new, name, ERR_OPEN);
+		error_exit(data, new, name, "open");
 	add_heredoc_to_data(name, data, new, fd);
 	get_input(fd, limiter, data, new);
 	close(fd);
@@ -138,6 +138,6 @@ int	create_here_doc(char *limiter, t_minishell *data, t_cmd *new)
 		return (HEREDOC_SIGNALED);
 	fd = open(name, O_RDONLY);
 	if (fd == -1)
-		error_exit(data, new, NULL, ERR_OPEN);
+		error_exit(data, new, NULL, "open");
 	return (fd);
 }

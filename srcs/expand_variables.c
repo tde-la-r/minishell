@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:52:09 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/17 20:47:11 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:39:22 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ static char	*find_expand_case(char	*str, t_minishell *data)
 			errno = 0;
 			str = substitute_variable(str, &i, *data);
 			if (errno)
-				error_exit(data, NULL, str, ERR_MALLOC);
+				error_exit(data, NULL, str, "malloc");
 		}
 		i++;
 	}

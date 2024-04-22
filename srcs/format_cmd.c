@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 11:23:00 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 18:05:27 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:40:49 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,11 @@ char	*format_cmd(t_minishell *data, char *arg, bool *exec)
 		return (arg);
 	tmp = ft_strjoin("/", arg);
 	if (!tmp)
-		child_error_exit(data, ERR_MALLOC);
+		child_error_exit(data, "malloc");
 	path = check_access(data, tmp, exec);
 	free(tmp);
 	if (!path)
-		child_error_exit(data, ERR_MALLOC);
+		child_error_exit(data, "malloc");
 	free(arg);
 	return (path);
 }
