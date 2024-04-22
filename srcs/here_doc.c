@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:51:43 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 17:22:03 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 17:43:38 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static void	write_input(int fd, bool expand, t_minishell *data, t_cmd *new)
 			{
 				errno = 0;
 				data->line = substitute_variable(data->line, &i, *data);
-				errno = 1;
 				if (errno)
 				{
 					close(fd);
