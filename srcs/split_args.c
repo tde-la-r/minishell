@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/14 14:13:47 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 17:28:47 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 20:40:15 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,33 +46,33 @@ static t_line	*clear_element(t_line *element, char **array, t_minishell *data)
 	return (tmp);
 }
 
-static t_line	*add_args(t_line *ind, char **str, t_line *next, t_minishell *f)
+t_line	*add_args(t_line *elem, char **args, t_line *next, t_minishell *data)
 {
 	t_line	*new;
 	int		i;
 	int		pos;
 
-	pos = ind->index;
+	pos = elem->index;
 	i = 1;
-	while (str[i])
+	while (args[i])
 	{
-		new = ft_lnnew(pos + i, EL_ARG, str[i], ind);
+		new = ft_lnnew(pos + i, EL_ARG, args[i], elem);
 		if (!new)
 		{
-			while (str[i])
+			while (args[i])
 			{
-				free(str[i]);
+				free(args[i]);
 				i++;
 			}
-			free(str);
-			ind->next = next;
-			error_exit(f, NULL, NULL, "malloc");
+			free(args);
+			elem->next = next;
+			error_exit(data, NULL, NULL, "malloc");
 		}
-		ind->next = new;
-		ind = ind->next;
+		elem->next = new;
+		elem = elem->next;
 		i++;
 	}
-	return (ind);
+	return (elem);
 }
 
 static t_line	*rearrange_arg(t_line *element, char **array, t_minishell *data)
