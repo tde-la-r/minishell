@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 19:54:58 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 18:06:51 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:13:54 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,7 @@ static void	init_lst_lexer(char *line, t_minishell *data)
 	i = 0;
 	while (line[i])
 	{
-		if (line[i] == '\"')
-			create_node_quote(data, line, &i, '\"');
-		else if (line[i] == '\'')
-			create_node_quote(data, line, &i, '\'');
-		else if (!ft_isifs(line[i]) && !ft_ismeta(line[i]))
+		if (!isifs(line[i]) && !ismeta(line[i]))
 			create_node_arg(data, line, &i);
 		else if (line[i] == '|')
 			create_node_pipe(data, line, &i, '|');
@@ -76,6 +72,7 @@ bool	parse_line(char *line, t_minishell *data)
 		free(line);
 		return (B_FAILURE);
 	}
+	add_history(line);
 	ret = check_syntax_error(line);
 	if (ret)
 	{

@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 17:12:27 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 18:15:18 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:38:02 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ int	check_pipe_error(char *line, int error, int *i)
 		return (error);
 	}
 	(*i)++;
-	while (ft_isifs(line[*i]))
+	while (isifs(line[*i]))
 		(*i)++;
 	if (ft_isprint(line[*i]))
 		error = 0;
@@ -104,9 +104,9 @@ int	check_redir_error(char *line, int error, int *i, int c)
 	error = 1;
 	if (line[*i] == c)
 		(*i)++;
-	while (ft_isifs(line[*i]))
+	while (isifs(line[*i]))
 		(*i)++;
-	if (ft_isprint(line[*i]) && !ft_ismeta(line[*i]))
+	if (ft_isprint(line[*i]) && !ismeta(line[*i]))
 		error = 0;
 	if (error)
 	{

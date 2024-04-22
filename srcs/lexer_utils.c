@@ -6,26 +6,18 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 15:50:13 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 18:15:28 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/22 14:40:17 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	ft_isifs(int c)
-{
-	if (c == ' ' || c == '	' || c == '\n')
-		return (1);
-	else
-		return (0);
-}
-
-int	ft_ismeta(int c)
+bool	ismeta(int c)
 {
 	if (c == '|' || c == '<' || c == '>')
-		return (1);
+		return (true);
 	else
-		return (0);
+		return (false);
 }
 
 void	find_token(char *line, int i, int *token)

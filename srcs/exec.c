@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:05:32 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 18:23:47 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 15:07:59 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,8 +137,6 @@ void	exec_cmds(t_minishell *data)
 			index = index->next;
 		}
 	}
-	sigaction(SIGINT, &data->ignore, NULL);
-	sigaction(SIGQUIT, &data->ignore, NULL);
 	close_fds(list);
 	wait_childs(list, data);
 }
