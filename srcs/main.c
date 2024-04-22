@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 16:02:00 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/22 18:13:05 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void	setup_new_line(t_minishell *data)
 {
 	ft_lnclear(&data->line_lst);
 	ft_cmdclear(&data->cmd_lst);
-	free_array(&data->paths);
 	del_heredocs(data->heredocs);
 	free_array(&data->heredocs);
 	data->heredocs = ft_calloc(sizeof(char *), 1);
@@ -38,6 +37,7 @@ static void	setup_new_line(t_minishell *data)
 		error_exit(data, NULL, NULL, "malloc");
 	free(data->prompt);
 	data->prompt = set_prompt(data);
+	free_array(&data->paths);
 	find_path_envp(data);
 }
 
