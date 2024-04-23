@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:15:03 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/17 18:35:17 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:09:54 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	add_first_quote(char **envp, char **new_envp, int i)
 	char	*tmp;
 
 	j = 0;
-	while (envp[i][j] != '=')
+	while (envp[i][j] && envp[i][j] != '=')
 		j++;
 	j++;
 	tmp = ft_substr(envp[i], 0, j);
@@ -85,7 +85,9 @@ int	modify_var(char **new_envp, char *dup_var, int index, int operator)
 	char	*to_add;
 	char	*tmp;
 
-	if (operator == '=')
+	if (operator == '\0')
+		free(dup_var);
+	else if (operator == '=')
 	{
 		free(new_envp[index]);
 		new_envp[index] = dup_var;

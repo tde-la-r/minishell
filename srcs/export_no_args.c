@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:12:28 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/19 18:34:12 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/23 14:55:56 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,19 @@ static int	add_dquote(char **envp, char **new_envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (add_first_quote(envp, new_envp, i))
-			return (EXIT_FAILURE);
-		if (add_second_quote(envp, new_envp, i))
-			return (EXIT_FAILURE);
+		if (ft_strchr(envp[i], '='))
+		{
+			if (add_first_quote(envp, new_envp, i))
+				return (EXIT_FAILURE);
+			if (add_second_quote(envp, new_envp, i))
+				return (EXIT_FAILURE);
+		}
+		else
+		{
+			new_envp[i] = ft_strdup(envp[i]);
+			if (!new_envp[i])
+				return (EXIT_FAILURE);
+		}
 		i++;
 	}
 	return (EXIT_SUCCESS);
@@ -64,7 +73,12 @@ static void	delete_var(char **new_envp)
 		if (!ft_strncmp(new_envp[i], "_=", 2))
 		{
 			free(new_envp[i]);
-			new_envp[i] = new_envp[i + 1];
+			while (new_envp[i])
+			{
+				new_envp[i] = new_envp[i + 1];
+				i++;
+			}
+			return ;
 		}
 		i++;
 	}
