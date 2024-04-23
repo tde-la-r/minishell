@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:25:17 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/19 18:35:50 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:33:49 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	find_env_index(const char *to_test, char **envp, int c)
 	while (envp[i])
 	{
 		len_env = 0;
-		while (envp[i][len_env] != '=')
+		while (envp[i][len_env] && envp[i][len_env] != '=')
 			len_env++;
 		len = ft_superior(len_arg, len_env);
 		if (!ft_strncmp(to_test, envp[i], len))

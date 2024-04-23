@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:56:08 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 15:40:06 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:15:24 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,13 @@ int *new_var_set)
 	if (!dup_var)
 		return (EXIT_FAILURE);
 	index = find_env_index(var, new_envp, operator);
-	if (index > -1)
+	if (index > -1 && operator != '\0')
 	{
 		if (modify_var(new_envp, dup_var, index, operator))
 			return (EXIT_FAILURE);
 		return (EXIT_SUCCESS);
 	}
-	if (operator == '=')
+	if (operator == '=' || operator == '\0')
 		new_envp[nbenv + *new_var_set] = dup_var;
 	else
 	{

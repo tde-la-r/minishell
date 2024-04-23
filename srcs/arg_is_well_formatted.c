@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:01:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/17 20:58:15 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:44:48 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,15 @@ int	check_operator(char *to_check)
 	i = 0;
 	if (!to_check)
 		return ('=');
-	while (to_check[i])
+	while (to_check[i] && to_check[i] != '=')
 	{
 		if (to_check[i] == '+')
 			return ('+');
 		i++;
 	}
-	return ('=');
+	if (to_check[i] == '=')
+		return ('=');
+	return ('\0');
 }
 
 static int	check_arg(char *to_check, int *i, int plus)
@@ -64,7 +66,7 @@ int	arg_is_well_formatted(char *to_check)
 		return (-1);
 	if (!i)
 		return (-1);
-	if (!to_check[i])
+	if (!to_check[i] && i == 0)
 		return (0);
 	return (1);
 }
