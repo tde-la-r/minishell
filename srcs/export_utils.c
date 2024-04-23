@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:15:03 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/23 15:09:54 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:30:14 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,10 @@ int	modify_var(char **new_envp, char *dup_var, int index, int operator)
 	}
 	else
 	{
-		to_add = ft_strchr_next(dup_var, '=');
+		if (ft_strchr(new_envp[index], '='))
+			to_add = ft_strchr_next(dup_var, '=');
+		else
+			to_add = ft_strchr(dup_var, '=');
 		tmp = ft_strjoin(new_envp[index], to_add);
 		free(dup_var);
 		if (!tmp)

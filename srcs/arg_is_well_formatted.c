@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:01:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/23 13:44:48 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/23 16:41:16 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,23 @@ int	arg_is_well_formatted(char *to_check)
 	if (!to_check[i] && i == 0)
 		return (0);
 	return (1);
+}
+
+bool	is_not_prev_arg(char **args, int index)
+{
+	int	j;
+	int	len;
+
+	j = 0;
+	len = 0;
+	while (args[index][len] && \
+			args[index][len] != '=' && args[index][len] != '+')
+		len++;
+	while (j < index)
+	{
+		if (!ft_strncmp(args[index], args[j], len))
+			return (false);
+		j++;
+	}
+	return (true);
 }

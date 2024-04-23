@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:56:08 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/23 15:10:55 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/23 15:55:19 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,8 @@ static int	parse_args(char **args, char **envp, int *nbenv)
 			ret = EXIT_FAILURE;
 		}
 		if (find_env_index(args[i], envp, operator) == -1 && format > 0)
-			(*nbenv)++;
+			if (is_not_prev_arg(args, i))
+				(*nbenv)++;
 		i++;
 	}
 	return (ret);
