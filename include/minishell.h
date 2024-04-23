@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/23 13:42:28 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/23 19:35:29 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@
 # define B_FAILURE true
 # define B_DEL true
 # define B_NO_DEL false
+# define B_CHILD true
+# define B_PARENT false
 
 # define HEREDOC_SIGNALED -2
 
@@ -255,6 +257,7 @@ char		*format_cmd(t_minishell *data, char *arg, bool *exec);
 
 int			arg_is_well_formatted(char *to_check);
 int			check_operator(char *to_check);
+bool		is_not_prev_arg(char **args, int index);
 
 /*================================del_quote.c================================*/
 
