@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 17:05:34 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:42:28 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -232,6 +232,8 @@ void		child_error_exit(t_minishell *data, char *err_msg);
 /*===============================split_args.c================================*/
 
 void		split_args_variables(t_minishell *data);
+t_line		*add_args(t_line *elem, char **args, \
+		t_line *next, t_minishell *data);
 char		**split_ifs(char *str);
 
 /*=========================expand_variables_utils.c==========================*/

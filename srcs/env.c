@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:52:29 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 15:37:53 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:31:38 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,12 @@ int	ft_env(t_minishell *data, int fd, char **args, char **envp)
 	i = 0;
 	while (envp[i])
 	{
-		if (!ft_strncmp("_=", envp[i], 2))
-			envp[i] = set_bash_display(data, envp[i]);
-		ft_putendl_fd(envp[i], fd);
+		if (ft_strchr(envp[i], '='))
+		{
+			if (!ft_strncmp("_=", envp[i], 2))
+				envp[i] = set_bash_display(data, envp[i]);
+			ft_putendl_fd(envp[i], fd);
+		}
 		i++;
 	}
 	return (0);
