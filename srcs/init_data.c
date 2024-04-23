@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:55:09 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 16:03:43 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:34:47 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,11 @@ static void	init_env(t_minishell *data, char **envp)
 
 static void	interactive_new_line(int signal)
 {
-	if (signal == SIGINT)
-	{
-		write(STDOUT_FILENO, "\n", 1);
-		rl_on_new_line();
-		rl_replace_line("", 0);
-		rl_redisplay();
-	}
+	g_signal = signal;
+	write(STDOUT_FILENO, "\n", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+	rl_redisplay();
 }
 
 t_minishell	*init_data(char **envp)

@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 18:13:05 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/23 13:45:11 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,21 @@ static void	setup_new_line(t_minishell *data)
 	find_path_envp(data);
 }
 
+static char	*call_readline(t_minishell *data)
+{
+	char	*line;
+
+	sigaction(SIGINT, &data->new_line, NULL);
+	line = readline(data->prompt);
+	sigaction(SIGINT, &data->ignore, NULL);
+	if (g_signal)
+	{
+		data->exit = g_signal + 128;
+		g_signal = 0;
+	}
+	return (line);
+}
+
 int	main(int argc, char **argv, char **envp)
 {
 	t_minishell		*data;
@@ -50,9 +65,7 @@ int	main(int argc, char **argv, char **envp)
 	(void) argv;
 	data = init_data(envp);
 	sigaction(SIGQUIT, &data->ignore, NULL);
-	sigaction(SIGINT, &data->new_line, NULL);
-	line = readline(data->prompt);
-	sigaction(SIGINT, &data->ignore, NULL);
+	line = call_readline(data);
 	while (line)
 	{
 		if (!parse_line(line, data))
@@ -62,9 +75,7 @@ int	main(int argc, char **argv, char **envp)
 			setup_new_line(data);
 		}
 		data->line_count++;
-		sigaction(SIGINT, &data->new_line, NULL);
-		line = readline(data->prompt);
-		sigaction(SIGINT, &data->ignore, NULL);
+		line = call_readline(data);
 	}
 	ft_exit(NULL, data);
 }
