@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/24 12:44:36 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:58:10 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,7 +151,7 @@ char		**ft_arraydup(char **array, int nbstr);
 char		*ft_getenv(const char *name, char **envp);
 int			find_env_index(const char *to_test, char **envp, int plus);
 void		print_array(int fd, char **array);
-char		*check_color(t_minishell *data, char *prompt, int *color);
+char		*check_color(t_minishell *data, char *prompt);
 
 /*=================================prompt.c==================================*/
 

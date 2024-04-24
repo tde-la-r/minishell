@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:25:17 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/24 12:43:55 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:57:20 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,21 +84,23 @@ void	print_array(int fd, char **array)
 	}
 }
 
-char	*check_color(t_minishell *data, char *prompt, int *color)
+char	*check_color(t_minishell *data, char *prompt)
 {
 	char	*tmp;
+	int		color;
 
-	if (*color == RE)
+	color = ft_abs(data->line_count) % 5;
+	if (color == RE)
 		tmp = ft_strjoin(RED, prompt);
-	if (*color == GR)
+	if (color == GR)
 		tmp = ft_strjoin(GREEN, prompt);
-	if (*color == YE)
+	if (color == YE)
 		tmp = ft_strjoin(YELLOW, prompt);
-	if (*color == BL)
+	if (color == BL)
 		tmp = ft_strjoin(BLUE, prompt);
-	if (*color == PU)
+	if (color == PU)
 		tmp = ft_strjoin(PURPLE, prompt);
-	if (*color == CY)
+	if (color == CY)
 		tmp = ft_strjoin(CYAN, prompt);
 	free(prompt);
 	if (!tmp)

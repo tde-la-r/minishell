@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:40:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/24 12:43:47 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:57:33 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,12 +79,8 @@ static char	*append_sep_chars(char *to_format, t_minishell *data)
 static char	*set_color(t_minishell *data, char *prompt)
 {
 	char		*tmp;
-	static int	color = 0;
 
-	tmp = check_color(data, prompt, &color);
-	color++;
-	if (color > 5)
-		color = 0;
+	tmp = check_color(data, prompt);
 	prompt = ft_strjoin(tmp, RESET);
 	free(tmp);
 	if (!prompt)
