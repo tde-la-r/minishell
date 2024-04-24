@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:25:17 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/23 13:33:49 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:43:55 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,26 @@ void	print_array(int fd, char **array)
 		ft_putendl_fd(array[i], fd);
 		i++;
 	}
+}
+
+char	*check_color(t_minishell *data, char *prompt, int *color)
+{
+	char	*tmp;
+
+	if (*color == RE)
+		tmp = ft_strjoin(RED, prompt);
+	if (*color == GR)
+		tmp = ft_strjoin(GREEN, prompt);
+	if (*color == YE)
+		tmp = ft_strjoin(YELLOW, prompt);
+	if (*color == BL)
+		tmp = ft_strjoin(BLUE, prompt);
+	if (*color == PU)
+		tmp = ft_strjoin(PURPLE, prompt);
+	if (*color == CY)
+		tmp = ft_strjoin(CYAN, prompt);
+	free(prompt);
+	if (!tmp)
+		error_exit(data, NULL, NULL, "malloc");
+	return (tmp);
 }

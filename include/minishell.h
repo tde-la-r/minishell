@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/23 19:35:29 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:44:36 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,14 @@
 # define ERR_SYN_EOF "minishell: syntax error: unexpected end of file" 
 # define ERR_SYN_PIPE "minishell: syntax error near unexpected token `|'" 
 
+# define RED "\e[0;91m"
+# define GREEN "\e[0;92m"
+# define YELLOW "\e[0;93m"
+# define BLUE "\e[0;94m"
+# define PURPLE "\e[0;95m"
+# define CYAN "\e[0;96m"
+# define RESET "\e[0m"
+
 extern int	g_signal;
 
 typedef enum e_type
@@ -84,6 +92,16 @@ typedef enum e_type
 	EL_OUT_T,
 	EL_OUT_A,
 }			t_type;
+
+typedef enum e_color
+{
+	RE,
+	GR,
+	YE,
+	BL,
+	PU,
+	CY,
+}			t_color;
 
 /*=================================structures================================*/
 
@@ -133,6 +151,7 @@ char		**ft_arraydup(char **array, int nbstr);
 char		*ft_getenv(const char *name, char **envp);
 int			find_env_index(const char *to_test, char **envp, int plus);
 void		print_array(int fd, char **array);
+char		*check_color(t_minishell *data, char *prompt, int *color);
 
 /*=================================prompt.c==================================*/
 

@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:40:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 19:22:31 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/24 12:43:47 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,22 @@ static char	*append_sep_chars(char *to_format, t_minishell *data)
 	return (pwd);
 }
 
+static char	*set_color(t_minishell *data, char *prompt)
+{
+	char		*tmp;
+	static int	color = 0;
+
+	tmp = check_color(data, prompt, &color);
+	color++;
+	if (color > 5)
+		color = 0;
+	prompt = ft_strjoin(tmp, RESET);
+	free(tmp);
+	if (!prompt)
+		error_exit(data, NULL, NULL, "malloc");
+	return (prompt);
+}
+
 char	*set_prompt(t_minishell *data)
 {
 	char	*pwd;
@@ -93,5 +109,6 @@ char	*set_prompt(t_minishell *data)
 		free(sep_chars);
 	if (!prompt)
 		error_exit(data, NULL, NULL, "malloc");
+	prompt = set_color(data, prompt);
 	return (prompt);
 }
