@@ -6,7 +6,7 @@
 /*   By: tde-la-r <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 16:55:09 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/23 13:34:47 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:22:33 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,11 +70,9 @@ t_minishell	*init_data(char **envp)
 	data->heredocs = ft_calloc(sizeof(char *), 1);
 	if (!data->heredocs)
 		error_exit(data, NULL, NULL, "malloc");
-	data->prompt = set_prompt(data);
 	data->ignore.sa_handler = SIG_IGN;
 	data->standard.sa_handler = SIG_DFL;
 	data->new_line.sa_handler = &interactive_new_line;
 	find_path_envp(data);
-	data->line_count = 1;
 	return (data);
 }

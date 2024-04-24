@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/24 10:41:30 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/24 13:23:46 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ static void	setup_new_line(t_minishell *data)
 	data->heredocs = ft_calloc(sizeof(char *), 1);
 	if (!data->heredocs)
 		error_exit(data, NULL, NULL, "malloc");
-	free(data->prompt);
-	data->prompt = set_prompt(data);
 	free_array(&data->paths);
 	find_path_envp(data);
 }
@@ -45,6 +43,8 @@ static char	*call_readline(t_minishell *data)
 {
 	char	*line;
 
+	data->prompt = set_prompt(data);
+	data->line_count++;
 	sigaction(SIGINT, &data->new_line, NULL);
 	line = readline(data->prompt);
 	sigaction(SIGINT, &data->ignore, NULL);
@@ -74,7 +74,7 @@ int	main(int argc, char **argv, char **envp)
 			exec_cmds(data);
 			setup_new_line(data);
 		}
-		data->line_count++;
+		free(data->prompt);
 		line = call_readline(data);
 	}
 	ft_exit(NULL, data);
