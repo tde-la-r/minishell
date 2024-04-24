@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/24 12:58:10 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:06:01 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,7 +176,7 @@ int			ft_pwd(int fd);
 int			ft_env(t_minishell *data, int fd, char **args, char **envp);
 int			ft_unset(char **args, char **envp, int *nb_envp);
 int			ft_cd(int fd, char **args, t_minishell *data);
-int			ft_exit(char **args, t_minishell *to_free);
+int			ft_exit(char **args, t_minishell *data, bool child);
 int			ft_echo(int fd, char **args);
 
 /*===============================export_utils.c==============================*/

@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 16:54:45 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/23 19:27:08 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:05:11 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,12 +110,13 @@ char	*error_msg(char *arg)
 	return (err);
 }
 
-int	ft_exit(char **args, t_minishell *data)
+int	ft_exit(char **args, t_minishell *data, bool child)
 {
 	int		ret;
 	char	*err;
 
-	ft_putendl_fd("exit", STDERR_FILENO);
+	if (!child)
+		ft_putendl_fd("exit", STDERR_FILENO);
 	ret = args_check(args);
 	if (ret == 2)
 	{

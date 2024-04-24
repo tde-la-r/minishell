@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/24 13:23:46 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:08:12 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,5 @@ int	main(int argc, char **argv, char **envp)
 		free(data->prompt);
 		line = call_readline(data);
 	}
-	ft_exit(NULL, data);
+	ft_exit(NULL, data, B_PARENT);
 }

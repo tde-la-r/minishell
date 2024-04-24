@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:05:32 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/23 19:47:30 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/24 16:04:42 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,26 +41,26 @@ static void	execve_error_exit(t_minishell *data, char *cmd)
 	exit (EXIT_FAILURE);
 }
 
-static bool	exec_builtin(char **args, t_cmd *cmd, bool child, t_minishell *data)
+static bool	exec_builtin(t_cmd *cmd, int fd_out, bool child, t_minishell *data)
 {
-	if (!args[0] || cmd->fd_in == -1 || cmd->fd_out == -1)
+	if (!cmd->args[0] || cmd->fd_in == -1 || fd_out == -1)
 		return (false);
-	if (!ft_is_builtin(args[0]))
+	if (!ft_is_builtin(cmd->args[0]))
 		return (false);
-	if (!ft_strncmp(args[0], "cd", BUILTIN_CMP_LEN))
-		data->exit = ft_cd(cmd->fd_out, args, data);
-	else if (!ft_strncmp(args[0], "env", BUILTIN_CMP_LEN))
-		data->exit = ft_env(data, cmd->fd_out, args, data->env);
-	else if (!ft_strncmp(args[0], "unset", BUILTIN_CMP_LEN) && !child)
-		data->exit = ft_unset(args, data->env, &data->nbenv);
-	else if (!ft_strncmp(args[0], "export", BUILTIN_CMP_LEN))
-		data->exit = ft_export(cmd->fd_out, args, data);
-	else if (!ft_strncmp(args[0], "pwd", BUILTIN_CMP_LEN))
-		data->exit = ft_pwd(cmd->fd_out);
-	else if (!ft_strncmp(args[0], "exit", BUILTIN_CMP_LEN) && !child)
-		data->exit = ft_exit(args, data);
-	else if (!ft_strncmp(args[0], "echo", BUILTIN_CMP_LEN))
-		data->exit = ft_echo(cmd->fd_out, args);
+	if (!ft_strncmp(cmd->args[0], "cd", BUILTIN_CMP_LEN))
+		data->exit = ft_cd(fd_out, cmd->args, data);
+	else if (!ft_strncmp(cmd->args[0], "env", BUILTIN_CMP_LEN))
+		data->exit = ft_env(data, fd_out, cmd->args, data->env);
+	else if (!ft_strncmp(cmd->args[0], "unset", BUILTIN_CMP_LEN))
+		data->exit = ft_unset(cmd->args, data->env, &data->nbenv);
+	else if (!ft_strncmp(cmd->args[0], "export", BUILTIN_CMP_LEN))
+		data->exit = ft_export(fd_out, cmd->args, data);
+	else if (!ft_strncmp(cmd->args[0], "pwd", BUILTIN_CMP_LEN))
+		data->exit = ft_pwd(fd_out);
+	else if (!ft_strncmp(cmd->args[0], "exit", BUILTIN_CMP_LEN))
+		data->exit = ft_exit(cmd->args, data, child);
+	else if (!ft_strncmp(cmd->args[0], "echo", BUILTIN_CMP_LEN))
+		data->exit = ft_echo(fd_out, cmd->args);
 	return (true);
 }
 
@@ -79,7 +79,7 @@ static void	exec_cmd_in_child(t_cmd *to_exec, t_minishell *data)
 	if (dup2(to_exec->fd_out, STDOUT_FILENO) == -1)
 		child_error_exit(data, "dup2");
 	close_fds(data->cmd_lst);
-	if (exec_builtin(to_exec->args, to_exec, B_CHILD, data))
+	if (exec_builtin(to_exec, STDOUT_FILENO, B_CHILD, data))
 	{
 		tmp = data->exit;
 		free_memory(data, NULL, NULL, B_NO_DEL);
@@ -125,7 +125,7 @@ void	exec_cmds(t_minishell *data)
 	list = data->cmd_lst;
 	if (ft_cmdsize(list) == 1)
 	{
-		if (!exec_builtin(list->args, list, B_PARENT, data))
+		if (!exec_builtin(list, list->fd_out, B_PARENT, data))
 			exec_cmd_in_child(list, data);
 	}
 	else
