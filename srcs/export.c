@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:56:08 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/23 15:55:19 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/29 01:06:44 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static char	**create_new_envp(char **args, char **envp, int nbenv, int new_vars)
 	new_var_set = 0;
 	while (args[i])
 	{
-		if (arg_is_well_formatted(args[i]) > 0)
+		if (arg_is_well_formatted(args[i]))
 			if (set_new_variable(new_envp, args[i], nbenv, &new_var_set))
 				free_array(&new_envp);
 		i++;
@@ -72,12 +72,12 @@ static char	**create_new_envp(char **args, char **envp, int nbenv, int new_vars)
 	return (new_envp);
 }
 
-static int	parse_args(char **args, char **envp, int *nbenv)
+static int	parse_args(char **args, char **envp, int *new_vars)
 {
-	int	i;
-	int	format;
-	int	ret;
-	int	operator;
+	int		i;
+	bool	format;
+	int		ret;
+	int		operator;
 
 	ret = EXIT_SUCCESS;
 	i = 1;
@@ -85,14 +85,15 @@ static int	parse_args(char **args, char **envp, int *nbenv)
 	{
 		format = arg_is_well_formatted(args[i]);
 		operator = check_operator(args[i]);
-		if (format < 0)
+		if (!format)
 		{
-			print_error_msg(args[i]);
+			ft_dprintf(STDERR_FILENO, "%s%s%s\n", \
+					ERR_EXPORT1, args[i], ERR_EXPORT2);
 			ret = EXIT_FAILURE;
 		}
-		if (find_env_index(args[i], envp, operator) == -1 && format > 0)
+		if (find_env_index(args[i], envp, operator) == -1 && format)
 			if (is_not_prev_arg(args, i))
-				(*nbenv)++;
+				(*new_vars)++;
 		i++;
 	}
 	return (ret);

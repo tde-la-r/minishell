@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 18:15:03 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/23 16:30:14 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/29 01:16:19 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,7 @@ int	add_second_quote(char **envp, char **new_envp, int i)
 	return (EXIT_SUCCESS);
 }
 
-void	print_error_msg(char *arg)
-{
-	char	*tmp;
-	char	*to_print;
-
-	tmp = ft_strjoin(ERR_EXPORT1, arg);
-	if (!tmp)
-		return ;
-	to_print = ft_strjoin(tmp, ERR_EXPORT2);
-	free(tmp);
-	ft_putendl_fd(to_print, 2);
-	free(to_print);
-}
-
-char	*select_content(char *var)
+/*char	*select_content(char *var)
 {
 	int		i;
 	int		len;
@@ -78,7 +64,7 @@ char	*select_content(char *var)
 	if (!tmp)
 		return (NULL);
 	return (tmp);
-}
+}*/
 
 int	modify_var(char **new_envp, char *dup_var, int index, int operator)
 {

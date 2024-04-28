@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/28 22:47:58 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/29 01:19:54 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,8 +184,6 @@ int			ft_echo(int fd, char **args);
 int			add_first_quote(char **envp, char **new_envp, int i);
 int			add_second_quote(char **envp, char **new_envp, int i);
 int			modify_var(char **new_envp, char *dup_var, int index, int operator);
-void		print_error_msg(char *arg);
-char		*select_content(char *var);
 
 /*=============================export_no_args.c==============================*/
 
@@ -274,7 +272,7 @@ char		*format_cmd(t_minishell *data, char *arg, bool *exec);
 
 /*==========================arg_is_well_formated.c===========================*/
 
-int			arg_is_well_formatted(char *to_check);
+bool		arg_is_well_formatted(char *to_check);
 int			check_operator(char *to_check);
 bool		is_not_prev_arg(char **args, int index);
 
