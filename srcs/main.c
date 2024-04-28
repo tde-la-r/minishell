@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/24 16:08:12 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:43:42 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	find_path_envp(t_minishell *data)
 		error_exit(data, NULL, NULL, "malloc");
 }
 
-static void	setup_new_line(t_minishell *data)
+static void	set_up_new_line(t_minishell *data)
 {
 	ft_lnclear(&data->line_lst);
 	ft_cmdclear(&data->cmd_lst);
@@ -58,8 +58,8 @@ static char	*call_readline(t_minishell *data)
 
 int	main(int argc, char **argv, char **envp)
 {
-	t_minishell		*data;
-	char			*line;
+	t_minishell	*data;
+	char		*line;
 
 	(void) argc;
 	(void) argv;
@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **envp)
 		{
 			init_lst_cmd(data);
 			exec_cmds(data);
-			setup_new_line(data);
+			set_up_new_line(data);
 		}
 		free(data->prompt);
 		line = call_readline(data);

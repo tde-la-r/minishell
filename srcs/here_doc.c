@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:51:43 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 17:43:38 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:48:25 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,8 +100,7 @@ static void	get_input(int fd, char *limiter, t_minishell *data, t_cmd *new)
 	}
 	if (pid)
 		return ;
-	limiter_len = 0;
-	set_signal(&expand, limiter, &limiter_len);
+	setup_readline_loop(&expand, limiter, &limiter_len);
 	data->line = readline("> ");
 	while (!g_signal && (ft_strncmp(data->line, limiter, limiter_len + 1)))
 		write_input(fd, expand, data, new);

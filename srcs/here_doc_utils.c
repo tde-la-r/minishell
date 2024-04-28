@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 21:32:56 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 16:24:33 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:50:10 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	check_signal(int signal)
 	}
 }
 
-void	set_signal(bool *expand, char *limiter, int *limiter_len)
+void	setup_readline_loop(bool *expand, char *limiter, int *limiter_len)
 {
 	struct sigaction	act;
 
@@ -41,7 +41,6 @@ int	receive_signal(t_minishell *data, t_cmd *new)
 {
 	int	status;
 
-	sigaction(SIGINT, &data->ignore, NULL);
 	if (wait(&status) == -1)
 		error_exit(data, new, NULL, "wait");
 	if (WIFEXITED(status))

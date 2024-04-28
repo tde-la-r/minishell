@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/24 16:06:01 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/28 22:47:58 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -297,7 +297,7 @@ int			create_here_doc(char *limiter, t_minishell *data, t_cmd *new);
 /*=============================here_docs_utils.c=============================*/
 
 void		check_signal(int signal);
-void		set_signal(bool *expand, char *limiter, int *limiter_len);
+void		setup_readline_loop(bool *expand, char *limiter, int *limiter_len);
 int			receive_signal(t_minishell *data, t_cmd *new);
 void		delete_all_char(char *str, char to_delete);
 

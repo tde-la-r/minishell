@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/23 17:12:27 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 14:38:02 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/28 18:32:05 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	check_before_pipe(char *line, int *i)
 	arg = false;
 	while (j < *i)
 	{
-		if (line[j] > 32 && line[j] != '|')
+		if (ft_isprint(line[j]) && !isifs(line[j]) && line[j] != '|')
 			arg = true;
 		if (line[j] == '|')
 			arg = false;
