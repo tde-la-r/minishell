@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/29 01:19:54 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:10:36 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,13 +73,13 @@
 # define ERR_SYN_EOF "minishell: syntax error: unexpected end of file" 
 # define ERR_SYN_PIPE "minishell: syntax error near unexpected token `|'" 
 
-# define RED "\e[0;91m"
-# define GREEN "\e[0;92m"
-# define YELLOW "\e[0;93m"
-# define BLUE "\e[0;94m"
-# define PURPLE "\e[0;95m"
-# define CYAN "\e[0;96m"
-# define RESET "\e[0m"
+# define RED "\001\033[0;91m\002"
+# define GREEN "\001\033[0;92m\002"
+# define YELLOW "\001\033[0;93m\002"
+# define BLUE "\001\033[0;94m\002"
+# define PURPLE "\001\033[0;95m\002"
+# define CYAN "\001\033[0;96m\002"
+# define RESET "\001\033[0m\002"
 
 extern int	g_signal;
 

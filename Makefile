@@ -6,7 +6,7 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/04/29 13:08:24 by tde-la-r         ###   ########.fr        #
+#    Updated: 2024/04/29 13:23:36 by amolbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,7 +46,6 @@ SRCS =	cd.c \
 		utils.c \
 		utils_2.c
 SRCS_DIR = srcs/
-SRCS_PATH = $(addprefix $(SRCS_DIR), $(SRCS))
 
 OBJS = $(SRCS:.c=.o)
 OBJS_DIR = objs/
