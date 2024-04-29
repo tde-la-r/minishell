@@ -6,14 +6,13 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/04/22 17:09:45 by tde-la-r         ###   ########.fr        #
+#    Updated: 2024/04/29 13:08:24 by tde-la-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = minishell
 
-SRCS = 	arg_is_well_formatted.c \
-		cd.c \
+SRCS =	cd.c \
 		cmd_lst.c \
 		cmd_lst_utils.c \
 		create_node.c \
@@ -29,6 +28,7 @@ SRCS = 	arg_is_well_formatted.c \
 		export.c \
 		export_no_args.c \
 		export_utils.c \
+		export_utils_2.c \
 		format_cmd.c \
 		here_doc.c \
 		here_doc_utils.c \
