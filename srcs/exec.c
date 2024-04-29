@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:05:32 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/29 13:50:46 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/29 14:01:03 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ static void	exec_cmd_in_child(t_cmd *to_exec, t_minishell *data)
 static void	wait_childs(t_cmd *index, t_minishell *data)
 {
 	int	status;
+	int	signal;
 
 	while (index)
 	{
@@ -107,10 +108,12 @@ static void	wait_childs(t_cmd *index, t_minishell *data)
 				data->exit = WEXITSTATUS(status);
 			if (WIFSIGNALED(status))
 			{
-				if (WTERMSIG(status) == SIGQUIT && !index->next)
-					printf("Quit (core dumped)");
-				printf("\n");
-				data->exit = WTERMSIG(status) + 128;
+				signal = WTERMSIG(status);
+				if (signal == SIGQUIT && !index->next)
+					printf("Quit (core dumped)\n");
+				if (signal == SIGINT)
+					printf("\n");
+				data->exit = signal + 128;
 			}
 		}
 		index = index->next;
