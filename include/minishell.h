@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/16 13:38:11 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/29 14:10:36 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/04/30 14:24:41 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -165,6 +165,10 @@ int			find_nb_args(t_line *line_lst);
 /*===============================parse_line.c================================*/
 
 bool		parse_line(char *line, t_minishell *data);
+
+/*================================exec_utils.c===============================*/
+
+void		print_signal_message(int signal, bool *print, t_cmd *index);
 
 /*===================================exec.c==================================*/
 

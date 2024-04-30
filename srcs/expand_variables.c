@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/19 13:52:09 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 17:24:57 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/30 16:13:27 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ static char	*find_expand_case(char *str, t_minishell *data)
 		if (str[i] == '"')
 			in_dquote = !in_dquote;
 		if (str[i] == '$' && isquote(str[i + 1]) && !in_dquote)
-			str[i] = SPLIT_CHAR;
+			delete_char(str, i);
 		else if (str[i] == '$')
 		{
 			errno = 0;

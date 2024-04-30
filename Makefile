@@ -6,7 +6,7 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/04/29 13:23:36 by amolbert         ###   ########.fr        #
+#    Updated: 2024/04/30 14:21:27 by amolbert         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS =	cd.c \
 		echo.c \
 		env.c \
 		error_exit.c \
+		exec_utils.c \
 		exec.c \
 		exit.c \
 		expand_variables.c \
