@@ -6,27 +6,40 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/10 15:52:29 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/23 13:31:38 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/04/30 20:47:54 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*set_bash_display(t_minishell *data, char *str)
+static void	print_vars(int fd, char **envp)
 {
-	char	*display;
+	int		i;
+	bool	underscore_var_printed;
 
-	display = ft_strdup("_=/usr/bin/env");
-	if (!display)
-		error_exit(data, NULL, NULL, "malloc");
-	free(str);
-	return (display);
+	underscore_var_printed = false;
+	i = 0;
+	while (envp[i])
+	{
+		if (ft_strchr(envp[i], '='))
+		{
+			if (!ft_strncmp("_=", envp[i], 2))
+			{
+				ft_putendl_fd("_=usr/bin/env", fd);
+				underscore_var_printed = true;
+				i++;
+				continue ;
+			}
+			ft_putendl_fd(envp[i], fd);
+		}
+		i++;
+	}
+	if (!underscore_var_printed)
+		ft_putendl_fd("_=usr/bin/env", fd);
 }
 
-int	ft_env(t_minishell *data, int fd, char **args, char **envp)
+int	ft_env(int fd, char **args, char **envp)
 {
-	int	i;
-
 	if (args && args[1])
 	{
 		if (args[1][0] == '-' && args[1][1])
@@ -38,16 +51,6 @@ int	ft_env(t_minishell *data, int fd, char **args, char **envp)
 		ft_dprintf(STDERR_FILENO, "env: '%s': %s\n", args[1], strerror(ENOENT));
 		return (127);
 	}
-	i = 0;
-	while (envp[i])
-	{
-		if (ft_strchr(envp[i], '='))
-		{
-			if (!ft_strncmp("_=", envp[i], 2))
-				envp[i] = set_bash_display(data, envp[i]);
-			ft_putendl_fd(envp[i], fd);
-		}
-		i++;
-	}
+	print_vars(fd, envp);
 	return (0);
 }
