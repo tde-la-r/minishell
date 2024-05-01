@@ -6,11 +6,11 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 17:25:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/05/01 13:33:39 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/05/01 20:10:05 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <minishell.h>
+#include "minishell.h"
 
 int	g_signal = 0;
 
