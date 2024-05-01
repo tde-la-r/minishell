@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/15 15:01:52 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/30 19:56:06 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/05/01 15:00:03 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,22 @@ bool	is_not_prev_arg(char **args, int index)
 {
 	int	j;
 	int	len;
+	int	len_cur_arg;
+	int	len_prev_arg;
 
 	j = 1;
-	len = 0;
-	while (args[index][len] && \
-			args[index][len] != '=' && args[index][len] != '+')
-		len++;
+	len_cur_arg = 0;
+	while (args[index][len_cur_arg] && \
+			args[index][len_cur_arg] != '=' && args[index][len_cur_arg] != '+')
+		len_cur_arg++;
 	while (j < index)
 	{
-		if (!ft_strncmp(args[index], args[j], len + 1))
+		len_prev_arg = 0;
+		while (args[j][len_prev_arg] \
+				&& args[j][len_prev_arg] != '=' && args[j][len_prev_arg] != '+')
+			len_prev_arg++;
+		len = ft_superior(len_prev_arg, len_cur_arg);
+		if (!ft_strncmp(args[index], args[j], len))
 			return (false);
 		j++;
 	}

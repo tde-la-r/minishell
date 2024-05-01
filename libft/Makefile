@@ -6,7 +6,7 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/05/01 14:04:33 by amolbert         ###   ########.fr        #
+#    Updated: 2024/05/01 14:43:13 by tde-la-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -91,7 +91,10 @@ SRCS =	ft_isalpha.c \
 		ft_lower.c \
 		ft_superior.c
 
-OBJS = $(SRCS:.c=.o)		
+SRCS_DIR = srcs/
+
+OBJS_DIR = objs/
+OBJS = $(addprefix $(OBJS_DIR), $(SRCS:.c=.o))
 
 INCLUDE = -I$(INCLUDE_DIR)
 INCLUDE_DIR = include/
@@ -102,9 +105,8 @@ all : $(NAME)
 
 $(NAME) : $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
-	@echo "Libft compiled"
 
-%.o : %.c
+$(OBJS_DIR)%.o : $(SRCS_DIR)%.c
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
