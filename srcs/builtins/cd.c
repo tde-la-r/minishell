@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:00:35 by amolbert          #+#    #+#             */
-/*   Updated: 2024/05/01 14:02:06 by amolbert         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:49:50 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	*get_target(char *arg, char **envp, bool *print)
 	{
 		var = ft_getenv("HOME", envp);
 		if (!var)
-			ft_dprintf(STDERR_FILENO, "%scd: %s not set\n", \
+			ft_fprintf(STDERR_FILENO, "%scd: %s not set\n", \
 					ERR_MSG_START, "HOME");
 	}
 	else if (!ft_strncmp("-", arg, 2))
@@ -76,7 +76,7 @@ static char	*get_target(char *arg, char **envp, bool *print)
 		*print = true;
 		var = ft_getenv("OLDPWD", envp);
 		if (!var)
-			ft_dprintf(STDERR_FILENO, "%scd: %s not set\n", \
+			ft_fprintf(STDERR_FILENO, "%scd: %s not set\n", \
 					ERR_MSG_START, "OLDPWD");
 	}
 	else
@@ -102,7 +102,7 @@ int	ft_cd(int fd, char **args, t_minishell *data)
 	if (chdir(target) == -1)
 	{
 		err = strerror(errno);
-		ft_dprintf(STDERR_FILENO, "%scd: %s: %s\n", ERR_MSG_START, target, err);
+		ft_fprintf(STDERR_FILENO, "%scd: %s: %s\n", ERR_MSG_START, target, err);
 		return (EXIT_FAILURE);
 	}
 	if (print)

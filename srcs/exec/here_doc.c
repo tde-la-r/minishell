@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/29 15:51:43 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/28 22:48:25 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:53:38 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ static void	get_input(int fd, char *limiter, t_minishell *data, t_cmd *new)
 		write_input(fd, expand, data, new);
 	close (fd);
 	if (!data->line)
-		ft_dprintf(STDERR_FILENO, "%s%s%d%s%s')\n", \
+		ft_fprintf(STDERR_FILENO, "%s%s%d%s%s')\n", \
 				ERR_MSG_START, ERR_HD1, data->line_count, ERR_HD2, limiter);
 	free_memory(data, new, NULL, B_NO_DEL);
 	if (g_signal)

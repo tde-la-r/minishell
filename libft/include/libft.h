@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 11:39:06 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/06 01:06:47 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:48:40 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ int		ft_putstr(char *s);
 int		ft_dectohexa(unsigned int n, char *index);
 int		ft_pointtohexa(unsigned long long n, char *index, int start);
 int		ft_printf(const char *s, ...);
-int		ft_dprintf(int fd, const char *s, ...);
+int		ft_fprintf(int fd, const char *s, ...);
 int		ft_abs(int n);
 int		ft_superior(int a, int b);
 int		ft_lower(int a, int b);

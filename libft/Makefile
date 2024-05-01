@@ -6,7 +6,7 @@
 #    By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/11/01 15:31:30 by amolbert          #+#    #+#              #
-#    Updated: 2024/05/01 14:43:13 by tde-la-r         ###   ########.fr        #
+#    Updated: 2024/05/01 19:49:12 by tde-la-r         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,7 @@ SRCS =	ft_isalpha.c \
 		ft_pointtohexa.c \
 		ft_count_words.c \
 		ft_printf.c \
-		ft_dprintf.c \
+		ft_fprintf.c \
 		printf_args.c \
 		get_next_line.c \
 		ft_lower.c \

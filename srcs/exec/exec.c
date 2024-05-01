@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/01 16:05:32 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/30 20:45:21 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:53:27 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ static void	execve_error_exit(t_minishell *data, char *cmd)
 			err_msg = ERR_ISDIR;
 	}
 	if (*cmd)
-		ft_dprintf(STDERR_FILENO, "%s%s: %s\n", ERR_MSG_START, cmd, err_msg);
+		ft_fprintf(STDERR_FILENO, "%s%s: %s\n", ERR_MSG_START, cmd, err_msg);
 	else
-		ft_dprintf(STDERR_FILENO, "%s'': %s\n", ERR_MSG_START, err_msg);
+		ft_fprintf(STDERR_FILENO, "%s'': %s\n", ERR_MSG_START, err_msg);
 	free_memory(data, NULL, NULL, B_NO_DEL);
 	if (err_code == ENOENT)
 		exit (ECODE_CMD_NOT_FOUND);

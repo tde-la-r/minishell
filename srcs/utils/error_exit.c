@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 21:53:29 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/22 16:19:03 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:54:11 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	child_error_exit(t_minishell *data, char *function)
 	if (errno == EBADF)
 		exit (EXIT_FAILURE);
 	if (function)
-		ft_dprintf(STDERR_FILENO, "%s%s: %s\n", \
+		ft_fprintf(STDERR_FILENO, "%s%s: %s\n", \
 				ERR_MSG_START, function, strerror(err_code));
 	exit (errno);
 }
@@ -87,7 +87,7 @@ void	error_exit(t_minishell *data, t_cmd *node, char *str, char *function)
 		close_fds(data->cmd_lst);
 	free_memory(data, node, str, B_DEL);
 	if (function)
-		ft_dprintf(STDERR_FILENO, "%s%s: %s\n", \
+		ft_fprintf(STDERR_FILENO, "%s%s: %s\n", \
 				ERR_MSG_START, function, strerror(err_code));
 	exit (errno);
 }

@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:56:08 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/29 01:06:44 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/05/01 19:53:13 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static int	parse_args(char **args, char **envp, int *new_vars)
 		operator = check_operator(args[i]);
 		if (!format)
 		{
-			ft_dprintf(STDERR_FILENO, "%s%s%s\n", \
+			ft_fprintf(STDERR_FILENO, "%s%s%s\n", \
 					ERR_EXPORT1, args[i], ERR_EXPORT2);
 			ret = EXIT_FAILURE;
 		}
