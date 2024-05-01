@@ -6,11 +6,11 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/12 14:00:35 by amolbert          #+#    #+#             */
-/*   Updated: 2024/04/22 19:19:43 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/05/01 14:02:06 by amolbert         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include <minishell.h>
 
 static void	update_oldpwd(char **envp, t_minishell *data)
 {
