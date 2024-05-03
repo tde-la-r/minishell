@@ -40,9 +40,6 @@ void	ft_lnadd_back(t_line **lst, t_line *new)
 
 void	ft_lndelone(t_line *lst)
 {
-	int	i;
-
-	i = 0;
 	if (!lst)
 		return ;
 	free(lst->str);

@@ -109,9 +109,6 @@ static int	add_declare(char **new_envp)
 
 int	export_no_arg(char **envp, char **new_envp, int nbenv, int fd)
 {
-	int	i;
-
-	i = 0;
 	new_envp = ft_calloc(sizeof(char *), nbenv + 1);
 	if (!new_envp)
 		return (EXIT_FAILURE);
