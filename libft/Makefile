@@ -107,6 +107,7 @@ $(NAME) : $(OBJS)
 	@ar rcs $(NAME) $(OBJS)
 
 $(OBJS_DIR)%.o : $(SRCS_DIR)%.c
+	@mkdir -p $(OBJS_DIR)
 	$(CC) $(CFLAGS) $(INCLUDE) -c $< -o $@
 
 clean :
