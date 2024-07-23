@@ -6,7 +6,7 @@
 /*   By: amolbert <amolbert@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/11 13:25:17 by tde-la-r          #+#    #+#             */
-/*   Updated: 2024/04/24 13:09:15 by tde-la-r         ###   ########.fr       */
+/*   Updated: 2024/07/23 17:27:57 by tde-la-r         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ char	*ft_getenv(const char *name, char **envp)
 	index = find_env_index(name, envp, '=');
 	if (index == -1)
 		return (NULL);
-	result = ft_strchr(envp[index], '=') + 1;
-	return (result);
+	result = ft_strchr(envp[index], '=');
+	if (!result)
+		return (NULL);
+	return (result + 1);
 }
 
 int	find_env_index(const char *to_test, char **envp, int c)
